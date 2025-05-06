@@ -1,0 +1,261 @@
+{
+  "main": {
+    "id": "897e72a5d73a51c5",
+    "type": "split",
+    "children": [
+      {
+        "id": "f0e2a24d114b539a",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "fa9776a534de9b65",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Enterprise Engineering/Dell/PowerStore.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "PowerStore"
+            }
+          },
+          {
+            "id": "8fbc1f5e142c88b1",
+            "type": "leaf",
+            "state": {
+              "type": "split-diff-view",
+              "state": {
+                "aFile": "Programming/Programming bit Bytes.md",
+                "bFile": "Programming/Programming bit Bytes.md",
+                "aRef": "HEAD",
+                "bRef": ""
+              },
+              "icon": "diff",
+              "title": "Diff: Programming bit Bytes"
+            }
+          },
+          {
+            "id": "946e7d99e822725c",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Golang/Structs.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Structs"
+            }
+          }
+        ],
+        "currentTab": 1
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "c8648e1017c49c29",
+    "type": "split",
+    "children": [
+      {
+        "id": "c70ff2853a3db464",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "0e83b893583dd11d",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "d8699e6d166e9d83",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "59a859afb9108aa9",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "a2fc5f22316f82cd",
+    "type": "split",
+    "children": [
+      {
+        "id": "9dadf302ec36961a",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "d1da21f8ecacecbc",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Go bits and bytes.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for Go bits and bytes"
+            }
+          },
+          {
+            "id": "ba15bd28d7ad5910",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Kubernetes/K8s intro.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from K8s intro"
+            }
+          },
+          {
+            "id": "58925760469a456d",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "4b94507ac129a3b5",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline"
+            }
+          },
+          {
+            "id": "421a667570ca91b7",
+            "type": "leaf",
+            "state": {
+              "type": "git-view",
+              "state": {},
+              "icon": "git-pull-request",
+              "title": "Source Control"
+            }
+          }
+        ],
+        "currentTab": 4
+      }
+    ],
+    "direction": "horizontal",
+    "width": 529.5
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "obsidian-git:Open Git source control": false
+    }
+  },
+  "active": "8fbc1f5e142c88b1",
+  "lastOpenFiles": [
+    "Kubernetes/K8s intro.md",
+    "Kubernetes/POD.md",
+    "Untitled.canvas",
+    "2025-05-03.md",
+    "Enterprise Engineering/Dell/PowerStore.md",
+    "Kubernetes",
+    "Enterprise Engineering/Networking/Random tid bits.md",
+    "Enterprise Engineering/Networking",
+    "Golang/Concurrency.md",
+    "Enterprise Engineering/Huawei Training/Storage.md",
+    "Enterprise Engineering/Storage Technologies.md",
+    "Enterprise Engineering/Dell/connectivitytypes.png",
+    "Enterprise Engineering/Dell/Screenshot_2025-04-29_12-17-18.png",
+    "Linux/The Kernel.md",
+    "Untitled.md",
+    "Linux",
+    "Go -ey links.md",
+    "Enterprise Engineering/Dell",
+    "Enterprise Engineering/NetApp/Troubleshooting.md",
+    "Golang/Structs.md",
+    "Enterprise Engineering/NetApp",
+    "Golang/Slices & Arrays.md",
+    "Golang/Maps.md",
+    "Golang/Interfaces.md",
+    "Golang/Go bits and bytes.md",
+    "Golang/Methods.md",
+    "Golang/Errors we Fought.md",
+    "Golang/channels.png",
+    "Programming/Stack vs Heap.md",
+    "Programming/Stack_use.png",
+    "Screenshot_2025-04-08_22-39-32.png",
+    "Golang/Try Outs.md",
+    "Golang/Errors.md",
+    "Golang/Pointers.md",
+    "Programming/stack_v_heap.png",
+    "Screenshot_2025-04-08_22-34-31.png",
+    "Programming/RegEx.md",
+    "Enterprise Engineering/Huawei Training/compression.png",
+    "Enterprise Engineering/Huawei Training/Screenshot_2025-04-02_12-32-53.png",
+    "Enterprise Engineering/Huawei Training/deduplication.png",
+    "Enterprise Engineering/Huawei Training/Untitled.md",
+    "Enterprise Engineering/Huawei Training",
+    "VMWare/Disk Provisioning.md",
+    "VMWare",
+    "Enterprise Engineering",
+    "Golang",
+    "Programming"
+  ]
+}
