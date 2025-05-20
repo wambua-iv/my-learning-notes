@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 Scale up => add disk capacity
 Scale Out =>  Addinng storage processors
 Backend PCIe => used internally in the system
@@ -15,12 +15,12 @@ vNodes. On mid-range models, each controller has two vNodes.
 SmartCache => makes use of SCM drives to compose a SmartCache pool
 	caches frequently accessed data shortening response time
 Smart Cache partition => partition is a logical concept based on SmartCache pool
-=======
+
 
 SmartCache => makes use of SCM drives to compose a SmartCache pool
 	caches frequently accessed data shortening response time
 Smart Cache partition => parttion is a logical concept based on SmartCache pool
->>>>>>> 6eeadd1f6c017cb6ca64b232d3e3e50cbe5c95f3
+
 Stores LUNs and file Systems
 
 __Smart Acceleration__ 
@@ -54,7 +54,7 @@ Snapshot => point in time copy of data
 |Write Performance|Slightly degraded|Often faster|
 |Fragmentation Risk|Low|Higher|
 |Read Complexity|May involve multiple reads|Simpler (from active volume)|
-<<<<<<< HEAD
+
 Cross-Level Rollback refers to restoring a system (volume, VM, or file system) not to the most recent snapshot, but to a specific earlier point in a snapshot chain or hierarchy
 
 
@@ -207,6 +207,6 @@ scale-out storage system supports node-level security and cabinet-level security
 [Hypermetro]
 [Data Protection]
 [Redirect on Write]
-=======
+
+
 Cross-Level Rollback refers to restoring a system (volume, VM, or file system) not to the most recent snapshot, but to a specific earlier point in a snapshot chain or hierarchy
->>>>>>> 6eeadd1f6c017cb6ca64b232d3e3e50cbe5c95f3
