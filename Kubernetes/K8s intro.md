@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+
+
+=======
+>>>>>>> 6eeadd1f6c017cb6ca64b232d3e3e50cbe5c95f3
 Container orchestrators are tools which group systems together to form clusters where containers' deployment and management is automated at scale while meeting the requirements
 	Fault-tolerance
     On-demand scalability
@@ -78,4 +83,132 @@ Application Quotas can be enforced using admission control
 
 __Service__ 
 = logically groups Pods and defines a policy to access them
+<<<<<<< HEAD
 -> grouping is achieved via Labels and Selectors
+
+
+### Ingress
+
+routing rules are associated with a given Service
+ingress controller is watching its corresponding ingress resource, the ingress resource definition manifest needs to include an ingress class name, such as spec.ingressClassName: nginx 
+
+#### Annotations
+are not used to identify and select objects. 
+Annotations can be used to:
+- Store build/release IDs, PR numbers, git branch, etc.
+- Phone/pager numbers of people responsible, or directory entries specifying where such information can be found.
+- Pointers to logging, monitoring, analytics, audit repositories, debugging tools, etc.
+- Ingress controller information.
+- Deployment state and revision information.
+
+[ResourceQuota]
+[Security Contexts and Pod Security Admission]
+
+
+## Kubectl
+
+use a kubectl version that is within one minor version difference of your cluster
+
+
+## Procedure
+
+generate client and server certificates for each Kubernetes component and a client certificate for the Kubernetes admin user.
+copy the various certificates to every machine at a path where each Kubernetes component will search for its certificate pair
+l generate [Kubernetes client configuration files](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/), typically called kubeconfigs, which configure Kubernetes clients to connect and authenticate to Kubernetes API Servers.
+
+Generating kubeconfig files for Kubelets the client certificate matching the Kubelet's node name must be used. This will ensure Kubelets are properly authorized by the Kubernetes Node Authorizer.
+
+The **`kube-scheduler` configuration file** is used to customize how the Kubernetes scheduler behaves. You can control things like leader election, profiles, extenders, plugins, and more.
+
+ etcd member must have a unique name within an etcd cluster. Set the etcd name to match the hostname of the current compute instance:
+
+
+
+
+
+
+
+
+
+
+### kube-apiserver.service systemd
+
+Manages the kube-api, central control plane component
+	-> cluster management
+	-> Authentication and Authorization
+	-> Kubernetes Lifecycle Management
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+In a **Kubernetes control plane or node setup**, files are commonly stored under both `/etc` and `/var`, but they serve **different purposes** based on **Linux filesystem standards**:
+
+---
+
+## 📁 `/etc` – Configuration Files (Static Content)
+
+* Used for **static**, system-specific **configuration** files.
+* Human-editable and version-controlled configuration.
+
+### 🔹 Common Kubernetes files under `/etc`
+
+| Path                                     | Purpose                                                  |
+| ---------------------------------------- | -------------------------------------------------------- |
+| `/etc/kubernetes/`                       | Main config dir for kubeadm and control plane components |
+| `/etc/kubernetes/manifests/`             | Static Pod YAMLs (used by `kubelet`)                     |
+| `/etc/kubernetes/pki/`                   | Certificates and keys (TLS, etcd, front proxy)           |
+| `/etc/kubernetes/admin.conf`             | Admin kubeconfig file (for `kubectl`)                    |
+| `/etc/cni/net.d/`                        | CNI network plugin configuration                         |
+| `/etc/systemd/system/kubelet.service.d/` | Systemd drop-ins for `kubelet` configuration             |
+
+> These files **configure** how the system behaves.
+
+---
+
+## 📁 `/var` – Variable Data (Logs, Runtime, State)
+
+* Used for **runtime data** that **changes frequently**, like logs, PID files, or dynamic content.
+
+### 🔹 Common Kubernetes files under `/var`
+
+| Path                                                                | Purpose                                                            |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------ |
+| `/var/lib/kubelet/`                                                 | State directory for the kubelet (e.g., volumes, pods, plugin data) |
+| `/var/lib/etcd/`                                                    | etcd's persistent database files                                   |
+| `/var/lib/kubeadm/`                                                 | Internal kubeadm state                                             |
+| `/var/log/pods/`                                                    | Pod logs (on some setups with logging agents)                      |
+| `/var/run/kubernetes/` (deprecated, replaced by `/run/kubernetes/`) | Some legacy temporary files                                        |
+| `/var/lib/cni/`                                                     | CNI plugin runtime data (e.g., IPAM info, network cache)           |
+
+> These files reflect **state and runtime data** and are usually not edited manually.
+
+---
+
+## 🧠 Summary
+
+| Folder | Used For             | Contents                           | Mutable?        |
+| ------ | -------------------- | ---------------------------------- | --------------- |
+| `/etc` | Configuration        | Certs, manifests, kubeconfig       | ❌ No (static)   |
+| `/var` | Runtime state & data | kubelet state, etcd data, CNI data | ✅ Yes (dynamic) |
+
+---
+
+Let me know if you want a diagram or example of how kubeadm lays out these files.
+=======
+-> grouping is achieved via Labels and Selectors
+>>>>>>> 6eeadd1f6c017cb6ca64b232d3e3e50cbe5c95f3

@@ -13,7 +13,11 @@ https://philipotoole.com/7-years-of-open-source-database-development-lessons-lea
 https://www.reddit.com/r/golang/comments/1f2s9io/why_should_data_be_independent_and_be_decoupled/                         
 
 
+<<<<<<< HEAD
+## Note-Worthy Pages
+=======
 ## Note-Worthy Packages 
+>>>>>>> 6eeadd1f6c017cb6ca64b232d3e3e50cbe5c95f3
 [errors package](https://pkg.go.dev/github.com/pkg/errors)
 [Go Concurrency Series: Deep Dive into Go Scheduler(I)](https://pratikpandey.substack.com/p/go-concurrency-series-deep-dive-into)
 [The Go Memory Model](https://go.dev/ref/mem)  
@@ -23,6 +27,25 @@ https://www.reddit.com/r/golang/comments/1f2s9io/why_should_data_be_independent_
 [Interview of Brian Kernhan](https://dcs-spotify.megaphone.fm/SED8783603439.mp3?key=0d7e081e2796a0637ea77b6b3eecba5c&request_event_id=6b1c3bb2-967e-4ac0-8efb-9b5b4abe5274&timetoken=1743245138_84D87F4B425BCAF76977896AC3B28CC4)
 [Dive into Systems](https://diveintosystems.org/singlepage/)
 [Russ Cox](https://research.swtch.com/)
+<<<<<<< HEAD
+[The twelve-factor app](https://12factor.net/)
+[Git Branching](https://learngitbranching.js.org/)
+[Delivery Architecture](https://www.f5.com/company/blog/nginx/microservices-at-netflix-architectural-best-practices)
+[Open Containers](https://github.com/opencontainers)
+[Microservices are a Tax](https://nexo.sh/posts/microservices-for-startups/?utm_source=changelog-news)
+     
+RECOMMENDED BOOKS 
+[Sandy Maguire • Thinking with Types](https://leanpub.com/thinking-with-types)
+[Edwin Brady • Type-Driven Development with Idris] [https://amzn.to/432GZTi] 
+Maryann Kisamore • Basics Of Apache Kafka • [https://amzn.to/3tkVYFD]
+Mitch Seymour • Mastering Kafka Streams and ksqlDB • [https://amzn.to/3HZ18wK](https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqbk1ZSGxXTTJJWUluY2YtMWlVNzh0MVNPRnlrd3xBQ3Jtc0tuMDNUN2NHRTZLWk9xRzdfbXIzTXZWclhia3U2UmV4b3N3QWpYWVU2RGx6djF6QWIzbzktUWxfM1ZpT1BFWGUwN3l4bjdGOGZHRE02SmNWTU9jeEJBWFZzMGhBWWlBR0dwZ0JIZnRwQnhYWExZM2huVQ&q=https%3A%2F%2Famzn.to%2F3HZ18wK&v=SOz66dcsuT8) 
+Ted Dunning & Ellen Friedman • Streaming Architecture • [https://amzn.to/3lhk3Kb](https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqbHRfQ2UxV3BvaldLcXl5T3ZrWTAzNy1XdGFwUXxBQ3Jtc0tuMm9SWFZwcHRjcEc4TGJmT0V6dmRkNGkwUW1fZ2Q3Y1lYVHpkeFNyaVFmSW1fTm9sWGY0M051THJvOWlfVHNFOWpGalY4eFBQWkVEQmxyQkd3T19sSkl5N2JMZVgtQ1JsZWhwQzc5clpqRXRJWTZGVQ&q=https%3A%2F%2Famzn.to%2F3lhk3Kb&v=SOz66dcsuT8) 
+Liz Rice • Container Security • [https://amzn.to/3oU4iJe](https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqbEh5NnVvSG91dWVJek9BR0VSMjhyVEpUNzlkZ3xBQ3Jtc0trcFJYRmo5SlpNd1hEYm9IQVduZ1NCS18tdl9tR0g0RWZzNzU1dEV0WmZhcDh2ODVQaEktLWFKLXdaREVKZHZiOGxqSU00M3BYTFZmZ3Q2QlFxRFkzZHpsQk5DdmduSXpBYzVoZjhhei14V1owLWdvRQ&q=https%3A%2F%2Famzn.to%2F3oU4iJe&v=SOz66dcsuT8) 
+Neal Ford • Functional Thinking • [https://amzn.to/3DdP35B]
+Petricek & Skeet • Real-World Functional Programming • [https://amzn.to/38diF4M](https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqbjJDUmNOZXFzczRwZWpZSlVYa2tDWjZOVHFmZ3xBQ3Jtc0ttYjl6eUdJZTRkU3FKVVVTbUFXT3NPMGRYSXNqRGRmeWRRSlA5TlE4aFN4REFtd29qdXp6eUZCd09pdngxajRoVkpxS1R4amlZdTBmTkc3WnlHbzVSbVRybDJSYS1WU0EwYU1PQlpsUEpFMXhKa1VHbw&q=https%3A%2F%2Famzn.to%2F38diF4M&v=SOz66dcsuT8) 
+Venkat Subramaniam • Functional Programming in Java • [https://amzn.to/2WlOXIt](https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqbXg4NWlQZGZkcHlCNXBjS3RRTVIxZURkTWlzQXxBQ3Jtc0ttMERUT1J0MkFhY0Q0OU5takIwdjY5eDlMbFFCclMxcHNZaGQ0aHFxUXBBTVkydUlKY0FkcHQweG1sb3hqWTUzbGVpVTB3N0kxczUxbmhSTnZTbXFTU3VjMURvU3pfbUNyZVRmTzR4MGJPRUhyOUVCcw&q=https%3A%2F%2Famzn.to%2F2WlOXIt&v=SOz66dcsuT8)
+=======
+>>>>>>> 6eeadd1f6c017cb6ca64b232d3e3e50cbe5c95f3
 
 
 https://dl3.netpaak.ir/media/media.plus/

@@ -25,15 +25,14 @@
             "id": "8fbc1f5e142c88b1",
             "type": "leaf",
             "state": {
-              "type": "split-diff-view",
+              "type": "markdown",
               "state": {
-                "aFile": "Programming/Programming bit Bytes.md",
-                "bFile": "Programming/Programming bit Bytes.md",
-                "aRef": "HEAD",
-                "bRef": ""
+                "file": "Enterprise Engineering/Huawei Training/Storage.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "diff",
-              "title": "Diff: Programming bit Bytes"
+              "icon": "lucide-file",
+              "title": "Storage"
             }
           },
           {
@@ -172,30 +171,22 @@
             "state": {
               "type": "outline",
               "state": {
+                "file": "Enterprise Engineering/Huawei Training/Storage.md",
                 "followCursor": false,
-                "showSearch": false,
+                "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline"
-            }
-          },
-          {
-            "id": "421a667570ca91b7",
-            "type": "leaf",
-            "state": {
-              "type": "git-view",
-              "state": {},
-              "icon": "git-pull-request",
-              "title": "Source Control"
+              "title": "Outline of Storage"
             }
           }
         ],
-        "currentTab": 4
+        "currentTab": 3
       }
     ],
     "direction": "horizontal",
-    "width": 529.5
+    "width": 529.5,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -210,8 +201,29 @@
   },
   "active": "8fbc1f5e142c88b1",
   "lastOpenFiles": [
+    "Enterprise Engineering/Storage Technologies.md",
+    "Go -ey links.md",
+    "Untitled.md",
+    "Golang~6eeadd1f6c017cb6ca64b232d3e3e50cbe5c95f3",
+    "Enterprise Engineering/Huawei Training/Storage.md",
+    "Pasted image 20250519172940.png",
+    "Golang/RAID sample.md",
     "Kubernetes/K8s intro.md",
+    "Enterprise Engineering/Linux/To Note.md",
+    "Enterprise Engineering/Linux",
+    "Golang/Errors.md",
+    "Programming/Stack vs Heap.md",
+    "Programming/RegEx.md",
+    "Programming/Programming bit Bytes.md",
+    "Kubernetes/KCNA.md",
     "Kubernetes/POD.md",
+    "To Be Noted.md",
+    "Fun Bytes.md",
+    "Enterprise Engineering/Huawei Training/SAN-NAS.png",
+    "Enterprise Engineering/Huawei Training/Active-Active.png",
+    "media/Workspace",
+    "media",
+    "Golang/Maps.md",
     "Untitled.canvas",
     "2025-05-03.md",
     "Enterprise Engineering/Dell/PowerStore.md",
@@ -219,43 +231,19 @@
     "Enterprise Engineering/Networking/Random tid bits.md",
     "Enterprise Engineering/Networking",
     "Golang/Concurrency.md",
-    "Enterprise Engineering/Huawei Training/Storage.md",
-    "Enterprise Engineering/Storage Technologies.md",
     "Enterprise Engineering/Dell/connectivitytypes.png",
     "Enterprise Engineering/Dell/Screenshot_2025-04-29_12-17-18.png",
     "Linux/The Kernel.md",
-    "Untitled.md",
     "Linux",
-    "Go -ey links.md",
-    "Enterprise Engineering/Dell",
     "Enterprise Engineering/NetApp/Troubleshooting.md",
     "Golang/Structs.md",
-    "Enterprise Engineering/NetApp",
     "Golang/Slices & Arrays.md",
-    "Golang/Maps.md",
     "Golang/Interfaces.md",
     "Golang/Go bits and bytes.md",
-    "Golang/Methods.md",
-    "Golang/Errors we Fought.md",
     "Golang/channels.png",
-    "Programming/Stack vs Heap.md",
     "Programming/Stack_use.png",
     "Screenshot_2025-04-08_22-39-32.png",
-    "Golang/Try Outs.md",
-    "Golang/Errors.md",
-    "Golang/Pointers.md",
     "Programming/stack_v_heap.png",
-    "Screenshot_2025-04-08_22-34-31.png",
-    "Programming/RegEx.md",
-    "Enterprise Engineering/Huawei Training/compression.png",
-    "Enterprise Engineering/Huawei Training/Screenshot_2025-04-02_12-32-53.png",
-    "Enterprise Engineering/Huawei Training/deduplication.png",
-    "Enterprise Engineering/Huawei Training/Untitled.md",
-    "Enterprise Engineering/Huawei Training",
-    "VMWare/Disk Provisioning.md",
-    "VMWare",
-    "Enterprise Engineering",
-    "Golang",
-    "Programming"
+    "Screenshot_2025-04-08_22-34-31.png"
   ]
 }

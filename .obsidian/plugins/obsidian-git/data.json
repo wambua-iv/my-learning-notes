@@ -5,7 +5,11 @@
   "autoSaveInterval": 0,
   "autoPushInterval": 0,
   "autoPullInterval": 0,
+<<<<<<< HEAD
+  "autoPullOnBoot": true,
+=======
   "autoPullOnBoot": false,
+>>>>>>> 6eeadd1f6c017cb6ca64b232d3e3e50cbe5c95f3
   "disablePush": false,
   "pullBeforePush": true,
   "disablePopups": false,
@@ -19,7 +23,11 @@
   "autoBackupAfterFileChange": false,
   "treeStructure": false,
   "refreshSourceControl": true,
+<<<<<<< HEAD
+  "basePath": "media/Workspace",
+=======
   "basePath": "",
+>>>>>>> 6eeadd1f6c017cb6ca64b232d3e3e50cbe5c95f3
   "differentIntervalCommitAndPush": false,
   "changedFilesInStatusBar": false,
   "showedMobileNotice": true,

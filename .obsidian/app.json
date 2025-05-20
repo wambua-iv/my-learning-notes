@@ -1,3 +1,8 @@
 {
+<<<<<<< HEAD
+  "alwaysUpdateLinks": true,
+  "showLineNumber": false
+=======
   "alwaysUpdateLinks": true
+>>>>>>> 6eeadd1f6c017cb6ca64b232d3e3e50cbe5c95f3
 }
