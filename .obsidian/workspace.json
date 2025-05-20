@@ -27,12 +27,19 @@
             "state": {
               "type": "markdown",
               "state": {
+<<<<<<< HEAD
                 "file": "Enterprise Engineering/Huawei Training/Storage.md",
+=======
+>>>>>>> 6eeadd1f6c017cb6ca64b232d3e3e50cbe5c95f3
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
+<<<<<<< HEAD
               "title": "Storage"
+=======
+              "title": "Maps"
+>>>>>>> 6eeadd1f6c017cb6ca64b232d3e3e50cbe5c95f3
             }
           },
           {
@@ -171,13 +178,28 @@
             "state": {
               "type": "outline",
               "state": {
+<<<<<<< HEAD
                 "file": "Enterprise Engineering/Huawei Training/Storage.md",
+=======
+>>>>>>> 6eeadd1f6c017cb6ca64b232d3e3e50cbe5c95f3
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
+<<<<<<< HEAD
               "title": "Outline of Storage"
+=======
+            }
+          },
+          {
+            "id": "421a667570ca91b7",
+            "type": "leaf",
+            "state": {
+              "type": "git-view",
+              "state": {},
+              "icon": "git-pull-request",
+              "title": "Source Control"
             }
           }
         ],
