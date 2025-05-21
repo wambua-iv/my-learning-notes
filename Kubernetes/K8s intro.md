@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 
-
-=======
->>>>>>> 6eeadd1f6c017cb6ca64b232d3e3e50cbe5c95f3
 Container orchestrators are tools which group systems together to form clusters where containers' deployment and management is automated at scale while meeting the requirements
 	Fault-tolerance
     On-demand scalability
@@ -47,7 +43,7 @@ __node agent__ [kubelet]
 	Any continer runtime that implements the CRI could be used by Kubernetes to manage containers.
 
 **Proxy {kube-Proxy}**
-	[*network agent*] which runs on each node, control plane and workers, responsible for dynamic updates and maintenance of all networking rules on the nod
+	[*network agent*] which runs on each node, control plane and workers, responsible for dynamic updates and maintenance of all networking rules on the nod 
 
 ### Networking
 container runtime _creates an isolated network space_ for each container it starts
@@ -209,6 +205,6 @@ In a **Kubernetes control plane or node setup**, files are commonly stored under
 ---
 
 Let me know if you want a diagram or example of how kubeadm lays out these files.
-=======
+
 -> grouping is achieved via Labels and Selectors
->>>>>>> 6eeadd1f6c017cb6ca64b232d3e3e50cbe5c95f3
+

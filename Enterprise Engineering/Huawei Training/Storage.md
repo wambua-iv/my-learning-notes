@@ -210,3 +210,12 @@ scale-out storage system supports node-level security and cabinet-level security
 
 
 Cross-Level Rollback refers to restoring a system (volume, VM, or file system) not to the most recent snapshot, but to a specific earlier point in a snapshot chain or hierarchy
+
+|Feature|Description|
+|---|---|
+|**Parallel Architecture**|Uses **multiple CPU cores/threads** to deduplicate data blocks simultaneously.|
+|**Inline and Post-processing**|Supports both **real-time (inline)** deduplication and **scheduled (post-process)** modes.|
+|**Global Deduplication**|Operates across entire storage pools, not just per volume or LUN.|
+|**Metadata Optimization**|Maintains deduplication indexes in-memory and on SSDs for fast access.|
+|**Multi-node Scaling**|In distributed systems (e.g., OceanStor), deduplication scales across nodes.|
+|**Integration with Compression**|Often used with compression to improve overall space savings.|

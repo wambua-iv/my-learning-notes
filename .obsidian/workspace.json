@@ -27,19 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-<<<<<<< HEAD
                 "file": "Enterprise Engineering/Huawei Training/Storage.md",
-=======
->>>>>>> 6eeadd1f6c017cb6ca64b232d3e3e50cbe5c95f3
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-<<<<<<< HEAD
               "title": "Storage"
-=======
-              "title": "Maps"
->>>>>>> 6eeadd1f6c017cb6ca64b232d3e3e50cbe5c95f3
             }
           },
           {
@@ -178,28 +171,13 @@
             "state": {
               "type": "outline",
               "state": {
-<<<<<<< HEAD
                 "file": "Enterprise Engineering/Huawei Training/Storage.md",
-=======
->>>>>>> 6eeadd1f6c017cb6ca64b232d3e3e50cbe5c95f3
                 "followCursor": false,
                 "showSearch": true,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-<<<<<<< HEAD
               "title": "Outline of Storage"
-=======
-            }
-          },
-          {
-            "id": "421a667570ca91b7",
-            "type": "leaf",
-            "state": {
-              "type": "git-view",
-              "state": {},
-              "icon": "git-pull-request",
-              "title": "Source Control"
             }
           }
         ],
@@ -223,45 +201,47 @@
   },
   "active": "8fbc1f5e142c88b1",
   "lastOpenFiles": [
-    "Enterprise Engineering/Storage Technologies.md",
+    "Kubernetes/K8s intro.md",
+    "Kubernetes/KCNA.md",
+    "Kubernetes/POD.md",
     "Go -ey links.md",
-    "Untitled.md",
-    "Golang~6eeadd1f6c017cb6ca64b232d3e3e50cbe5c95f3",
     "Enterprise Engineering/Huawei Training/Storage.md",
     "Pasted image 20250519172940.png",
+    "To Be Noted.md",
+    "libfprint-2-tod1-broadcom/var/lib/fprint/fw/key.pem",
+    "libfprint-2-tod1-broadcom/var/lib/fprint/fw/bcmsbiCitadelA0_7.otp",
+    "libfprint-2-tod1-broadcom/var/lib/fprint/fw/bcmsbiCitadelA0_1.otp",
+    "libfprint-2-tod1-broadcom/var/lib/fprint/fw/bcm_cv_current_version.txt",
+    "libfprint-2-tod1-broadcom/var/lib/fprint/fw/bcm_cv_clearscd.bin",
+    "libfprint-2-tod1-broadcom/var/lib/fprint/fw/bcmDeviceFirmwareCitadel_7.bin",
+    "libfprint-2-tod1-broadcom/var/lib/fprint/fw/bcmDeviceFirmwareCitadel_1.bin",
+    "libfprint-2-tod1-broadcom/var/lib/fprint/fw/bcmCitadel_7.otp",
+    "libfprint-2-tod1-broadcom/var/lib/fprint/fw/bcmCitadel_1.otp",
+    "libfprint-2-tod1-broadcom/var/lib/fprint/fw",
+    "Enterprise Engineering/Storage Technologies.md",
+    "Untitled.md",
     "Golang/RAID sample.md",
-    "Kubernetes/K8s intro.md",
     "Enterprise Engineering/Linux/To Note.md",
-    "Enterprise Engineering/Linux",
     "Golang/Errors.md",
     "Programming/Stack vs Heap.md",
     "Programming/RegEx.md",
     "Programming/Programming bit Bytes.md",
-    "Kubernetes/KCNA.md",
-    "Kubernetes/POD.md",
-    "To Be Noted.md",
     "Fun Bytes.md",
     "Enterprise Engineering/Huawei Training/SAN-NAS.png",
     "Enterprise Engineering/Huawei Training/Active-Active.png",
-    "media/Workspace",
-    "media",
     "Golang/Maps.md",
     "Untitled.canvas",
     "2025-05-03.md",
     "Enterprise Engineering/Dell/PowerStore.md",
-    "Kubernetes",
     "Enterprise Engineering/Networking/Random tid bits.md",
-    "Enterprise Engineering/Networking",
     "Golang/Concurrency.md",
     "Enterprise Engineering/Dell/connectivitytypes.png",
     "Enterprise Engineering/Dell/Screenshot_2025-04-29_12-17-18.png",
     "Linux/The Kernel.md",
-    "Linux",
     "Enterprise Engineering/NetApp/Troubleshooting.md",
     "Golang/Structs.md",
     "Golang/Slices & Arrays.md",
     "Golang/Interfaces.md",
-    "Golang/Go bits and bytes.md",
     "Golang/channels.png",
     "Programming/Stack_use.png",
     "Screenshot_2025-04-08_22-39-32.png",

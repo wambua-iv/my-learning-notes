@@ -1,8 +1,7 @@
-<<<<<<< HEAD
+
 Smallest kubernetes workload object [logical collection of one or more containers that share same namespaces and cgroups, access to mount same external storage]
-=======
+
 Smallest kubernetes workload object [logical collection of one or more containers that share same namespace, access to mount same external storage]
->>>>>>> 6eeadd1f6c017cb6ca64b232d3e3e50cbe5c95f3
 	- represents an instance of an application
 	- cannot self-heal
 ```yaml
@@ -23,7 +22,6 @@ spec:
 
 -**apiVersion** field must specify "v1" for the Pod object definition. -
 	-second required field is **kind** specifying the Pod object type. 
-<<<<<<< HEAD
 	-third required field **metadata**, holds the object's name and optional labels and annotations. The fourth required field spec marks the beginning of the block defining the desired state of the Pod object - also named the PodSpec.
 
 
@@ -78,6 +76,8 @@ spec:
 - Creates one or more Pods that execute a task and terminate afterwards
 ##### => CronJob
 - CronJobs add a time-based configuration to jobs. This allows running Jobs periodically
+- CronJob creates a Job object approximately once per execution time of its schedule
+- CronJob is only responsible for creating Jobs that match its schedule, and the Job in turn is responsible for the management of the Pods it represents
 
 
 
@@ -97,6 +97,8 @@ using-  nm xcvb a ConfigMap:
 Create a ConfigMap from a File => first create [.properties] file
 
 
-=======
-	-third required field **metadata**, holds the object's name and optional labels and annotations. The fourth required field spec marks the beginning of the block defining the desired state of the Pod object - also named the PodSpec.
->>>>>>> 6eeadd1f6c017cb6ca64b232d3e3e50cbe5c95f3
+
+-third required field **metadata**, holds the object's name and optional labels and annotations. The fourth required field spec marks the beginning of the block defining the desired state of the Pod object - also named the PodSpec.
+
+=> Authentication => Authorization => Admission 
+
