@@ -32,7 +32,9 @@ https://www.reddit.com/r/golang/comments/1f2s9io/why_should_data_be_independent_
 [Open Containers](https://github.com/opencontainers)
 [Microservices are a Tax](https://nexo.sh/posts/microservices-for-startups/?utm_source=changelog-news)
 [Openshift on VMware](https://medium.com/@prayag-sangode/openshift-installation-on-vmware-97e596ef5e97)
-     
+[Handles are the better pointers](https://floooh.github.io/2018/06/17/handles-vs-pointers.html)
+[# Andrew Kelley Practical Data Oriented Design (DoD)](https://www.youtube.com/watch?v=IroPQ150F6c)
+[Freelist allocator for Go](https://www.reddit.com/r/golang/comments/1fgvvc2/generic_freelist_allocator_for_go/)
 RECOMMENDED BOOKS 
 [Sandy Maguire • Thinking with Types](https://leanpub.com/thinking-with-types)
 [Edwin Brady • Type-Driven Development with Idris] [https://amzn.to/432GZTi] 

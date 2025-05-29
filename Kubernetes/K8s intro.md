@@ -12,19 +12,31 @@ _"Kubernetes is an open-source system for automating deployment, scaling, and ma
 ## Control Panel
 __control plane__ node provides a running environment for the control plane agents responsible for managing the state of a Kubernetes cluster,
 To *persist the Kubernetes cluster's state*, all cluster configuration data is saved to a **distributed key-value store** which only holds cluster state related data
-with external key-value store topology, where the dedicated key-value store hosts have to be separately replicated for HA
 
-__Api Server__ =>  The API Server intercepts RESTful calls, validates and proc
-administrative tasks are coordinated by the #kube-apiserver, a central control plane component running on the control plane node
 
-__Scheduler__ => kube-scheduler is to assign new workload objects, such as pods encapsulating containers, to nodes - typically worker nodes
-scheduler obtains from the key-value store, via the API Server, resource usage data for each worker node in the cluster. The scheduler also receives from the API Server the new workload object's requirements
+=> __Api Server__ 
+	The API Server intercepts RESTful calls, validates and processes the requests administrative tasks are coordinated by the #kube-apiserver, a central control plane component running on the control plane node
+	All the administrative tasks are coordinated by the kube-apiserver
+	- can scale horizontally, but it also supports the addition of custom secondary API Servers, 
+	- a configuration that transforms the primary API Server into a proxy to all secondary, custom API Servers, routing all incoming RESTful calls to them based on custom defined rules.
+
+=> __Scheduler__ 
+	- kube-scheduler is to assign new workload objects, such as pods encapsulating containers, to nodes - typically worker nodes 
+	- scheduler obtains from the key-value store, via the API Server, resource usage data for each worker node in the cluster. The scheduler also receives from the API Server the new workload object's requirements
+	- takes into account Quality of Service (QoS) requirements, data locality, affinity, anti-affinity, taints, toleration, cluster topology
+	- 
 	The scheduler is highly configurable and customizable through scheduling policies, plugins, and profiles
 	
-__controller managers__ are components of the control plane node running controllers or operator processes to regulate the state of the Kubernetes cluster
+=> __controller managers__ 
+	- are components of the control plane node running controllers or operator processes to regulate the state of the Kubernetes cluster
 
-__Key-value data store__ =>[etcd](https://etcd.io) is an open source project under the [Cloud Native Computing Foundation](https://www.cncf.io) (CNCF). etcd is a strongly consistent, distributed key-value data store used to persist a Kubernetes cluster's state
+=> __Key-value data store__ 
+	- [etcd](https://etcd.io) is an open source project under the [Cloud Native Computing Foundation](https://www.cncf.io) (CNCF). etcd is a strongly consistent, distributed key-value data store used to persist a Kubernetes cluster's state
 	- only the API Server is able to communicate with the etcd data store
+	- key-value store may be configured on the control plane node (stacked topology), or on its dedicated host (external topology)
+	- external key-value store topology, where the dedicated key-value store hosts have to be separately replicated for HA
+	- stacked key-value store topology, HA control plane node replicas ensure the key-value store's resiliency
+
 
 __Worker Node__
 	- Provides running environment for client applications
@@ -79,9 +91,7 @@ Application Quotas can be enforced using admission control
 
 __Service__ 
 = logically groups Pods and defines a policy to access them
-<<<<<<< HEAD
 -> grouping is achieved via Labels and Selectors
-
 
 ### Ingress
 
