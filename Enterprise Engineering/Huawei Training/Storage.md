@@ -71,8 +71,7 @@ LUNs deployed on Multiple controllers to provide high performance and high relia
 
 Zero RTO/RPO using SmartMatrix
 OceanStor Dorado innovates and improves the overall software
-architecture to implement a truly distributed active-active architecture, end-to-
-end NVMe, and global resource sharing.
+architecture to implement a truly distributed active-active architecture, end-to-end NVMe, and global resource sharing.
 
 [Global caching]: Each LUN is divided into slices and then evenly distributed
 to all of the controllers with the distributed hash table, or DHT algorithm
@@ -83,6 +82,14 @@ for parallel processing
 
 ### Converged NAS and SAN
 SAN and NAS Protocols are isolated
+
+OceanStor Dorado builds integrated feature service capabilities with
+distinction between SAN and NAS logical semantics 
+	-> **protocol layer** = parsing and permission management. SAN and NAS are two sets of semantic logic
+	-> **data service layer** = value-added disaster recovery 
+	-> **Global cache** = enables metadata and data cache acceleration
+	-> **Space management layer** = 
+	-> **Storage pool** = provides underlying space allocation 
 
 ![[SAN-NAS.png]]
 
@@ -166,14 +173,45 @@ initial synchronization is complete, the data status of the secondary
 LUN becomes Consistent
 
 Running status of  Replication Pair
-Normal => Data synchronization between the primary and secondary LUNs is complete.
-Split => Data replication between the primary and secondary LUNs is suspended. The running status of a pair changes to Split after the primary and secondary LUNs are manually split.
-Interrupted =>  the pair between the primary and secondary LUNs is interrupted
-To be recovered => remote replication pair requires restoration using a manual policy after the fault that caused a pair interruption is rectified
-Invalid => original properties of a primary or secondary LUN change while a pair is interrupted
-Synchronizing => When data is being synchronized from the primary LUN to the secondary LUN, the secondary LUN cannot be read or written. If a disaster occurs at this time, data on the secondary LUN cannot be used for service recovery. 
+	Normal 
+		 Data synchronization between the primary and secondary LUNs is complete.
+	Split 
+		Data replication between the primary and secondary LUNs is suspended. The running status of a pair changes to Split after the primary and secondary LUNs are manually split.
+	Interrupted  
+		the pair between the primary and secondary LUNs is interrupted
+	To be recovered 
+		remote replication pair requires restoration using a manual policy after the fault that caused a pair interruption is rectified
+	Invalid 
+		original properties of a primary or secondary LUN **change while a pair is interrupted**
+	Synchronizing 
+		When data is being synchronized from the primary LUN to the secondary LUN, the **secondary LUN cannot be read or written**. If a disaster occurs at this time, data on the secondary LUN cannot be used for service recovery. 
 
 after a remote replication pair is configured, for the host, the [secondary LUN is read-only by default.] -> write protection must be removed to make the secondary LUN able to take over the roles of the primary LUN
+
+Synchronous
+	**Intial Synchronization** -> If the primary LUN receives a write request from the host during initial synchronization, data is written to both the primary and secondary LUNs.
+	**Dual Write** 
+		-> production storage system receives a write request
+		-> HyperReplication records the request in a log (records the address information)
+		-> data written to both the primary and secondary LUNs. If a LUN is in the write-back state, data will be written to the cache.
+		-> HyperReplication waits for the write results from both the primary and secondary LUNs. Replication relationship is interrupted if the Secondary LUN write fails
+		-> The system returns the write result of the primary LUN to the host.
+		 {synchronization is started later, the data blocks corresponding to the log address are replicated again}
+Asynchronous
+	- initial synchronization is implemented by default to copy all data from the primary LUN to the secondary LUN.
+	- asynchronous replication synchronization task is started, snapshots are generated for primary and secondary LUNs, and the points in time of these two LUNs are updated.
+		- snapshot of the primary LUN is X and that of the secondary LUN is X
+	- host is cached at the point in time X + 1 in the primary LUN cache [host receives a write success]
+	- Data at the point in time X on the primary LUN is replicated to the secondary LUN [snapshots of the primary and secondary LUNs are deleted]
+	- primary and secondary LUNs flush the received data to disks and record the DCL.
+#### NAS Asyschronous Replication
+-> RPO of fifteen seconds
+-> Snapshot of Primary Lun is taken first
+	- [host write]
+		- data is written to the local cache on the host, the write result is returned to the host
+		- object layer-based replication directly replicates objects from the primary file system to the secondary file system without the involvement of the file layer
+
+During data synchronization, remote replication pair 02 fails due to a fault. The consistency group stops synchronization of remote replication pairs 01 and 03 immediately.
 
 [HyperDetect] is a data protection technology deployed in storage system containers. It provides _ransomware detection capabilities_, including __ransomware file interception__, __real-time ransomware detection__, and __intelligent ransomware detection__
 
@@ -198,7 +236,9 @@ scale-out storage system supports node-level security and cabinet-level security
 ![[Pasted image 20250519172940.png]]
 
 
-[HyperMetro]:  => active-active storage pair.
+[HyperMetro]  => active-active storage pair.
+	- allows two data centers to process services simultaneously and back up each other
+	- Single data centre and cross DC 
 
 [Software Integrity Protection]
 [Data deduplication]
@@ -219,3 +259,12 @@ Cross-Level Rollback refers to restoring a system (volume, VM, or file system) n
 |**Metadata Optimization**|Maintains deduplication indexes in-memory and on SSDs for fast access.|
 |**Multi-node Scaling**|In distributed systems (e.g., OceanStor), deduplication scales across nodes.|
 |**Integration with Compression**|Often used with compression to improve overall space savings.|
+
+
+End to End full mesh interconnection
+	- interconnect I/O modules are fully interconnected with all controllers in a controller enclosure
+		- Each FE interconnect module connects to all four controllers
+		- module can simultaneously access the four controllers with multi-channel technology in active-active mode
+	- any two controllers are directly connected by two links
+		- controllers in an enclosure are symmetrically connected by twelve 100 Gbit/s RDMA links
+		- Each module connects to the four controllers in a controller enclosure and can be accessed by the four controllers simultaneously

@@ -12,6 +12,7 @@ _"Kubernetes is an open-source system for automating deployment, scaling, and ma
 ## Control Panel
 __control plane__ node provides a running environment for the control plane agents responsible for managing the state of a Kubernetes cluster,
 To *persist the Kubernetes cluster's state*, all cluster configuration data is saved to a **distributed key-value store** which only holds cluster state related data
+node controller checks the state of each node every 5 seconds
 
 
 => __Api Server__ 
@@ -29,6 +30,12 @@ To *persist the Kubernetes cluster's state*, all cluster configuration data is s
 	
 => __controller managers__ 
 	- are components of the control plane node running controllers or operator processes to regulate the state of the Kubernetes cluster
+	- Detect node failures and updates the etcd node status
+		- - **Node Controller** waits **`node-monitor-grace-period`** (default: 40 seconds).- If no heartbeat is received within that period:
+	    - It marks the Node as `NotReady`.
+	    - It may trigger **eviction** of pods if the node remains down for the duration of:
+        - `pod-eviction-timeout` (default: 5 minutes)
+	- Kubelets on each node periodically send heartbeats to the API server
 
 => __Key-value data store__ 
 	- [etcd](https://etcd.io) is an open source project under the [Cloud Native Computing Foundation](https://www.cncf.io) (CNCF). etcd is a strongly consistent, distributed key-value data store used to persist a Kubernetes cluster's state
@@ -42,20 +49,30 @@ __Worker Node__
 	- Provides running environment for client applications
 	- Applications are encapsulated in Pods [smallest unit of work scheduling], that are scheduled on worker nodes [which provide required compute, memory and storage.]
 	- Multi-worker k8s cluster network traffic is not routed through the control plane node
+	- Node registration is by 
+		- kubelet self-registration
+			- Self Registration flags -> `--register-node` is true 
+				- `--kubeconfig` = Path to credentials to authenticate itself
+				- `--cloud-provider`
+				- --register-with-taints
+				- `--node-ip`
+				- `--node-labels`
+				- `--node-status-update-frequency`
+		- manual addition
+	__container runtime__
+		 k8s lacks capability to *directly* handle containers, supported run times _CRI-Ocontainerd_, _Docker Engine_,  _Mirantis Container Runtime_.
+	__node agent__ [kubelet]
+		agent running on each node control plane and workers communicating with the control panel
+		monitors the health of the resources on the pods
+		connects container runtimes through a plugin based interface [Container Runtime Interface]
+	[CRI shims] => {standardized approach to container runtime integration}
+		Any continer runtime that implements the CRI could be used by Kubernetes to manage containers.
+	**Proxy {kube-Proxy}**
+		[*network agent*] which runs on each node, control plane and workers, responsible for dynamic updates and maintenance of all networking rules on the nod 
 
-__container runtime__
-	 k8s lacks capability to *directly* handle containers, supported run times _CRI-Ocontainerd_, _Docker Engine_,  _Mirantis Container Runtime_.
-
-__node agent__ [kubelet]
-	agent running on each node control plane and workers communicating with the control panel
-	monitors the health of the resources on the pods
-	connects container runtimes through a plugin based interface [Container Runtime Interface]
-
-[CRI shims] => {standardized approach to container runtime integration}
-	Any continer runtime that implements the CRI could be used by Kubernetes to manage containers.
-
-**Proxy {kube-Proxy}**
-	[*network agent*] which runs on each node, control plane and workers, responsible for dynamic updates and maintenance of all networking rules on the nod 
+The name of a Node object must be a valid [DNS subdomain name](https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#dns-subdomain-names).
+Node [names] must be unique
+ Node configuration needs to be updated, it is a good practice to re-register the node with the API server
 
 ### Networking
 container runtime _creates an isolated network space_ for each container it starts

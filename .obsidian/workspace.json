@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Kubernetes/K8s intro.md",
+                "file": "Kubernetes/KCNA.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "K8s intro"
+              "title": "KCNA"
             }
           },
           {
@@ -201,11 +201,15 @@
   },
   "active": "8fbc1f5e142c88b1",
   "lastOpenFiles": [
-    "Go -ey links.md",
     "Kubernetes/K8s intro.md",
-    "Golang/Garbage Collection.md",
-    "Enterprise Engineering/Huawei Training/Storage.md",
     "Kubernetes/KCNA.md",
+    "Golang/Go bits and bytes.md",
+    "Golang/Try Outs.md",
+    "Enterprise Engineering/Huawei Training/Storage.md",
+    "Enterprise Engineering/Storage Technologies.md",
+    "Go -ey links.md",
+    "Enterprise Engineering/Linux/To Note.md",
+    "Golang/Garbage Collection.md",
     "Kubernetes/POD.md",
     "Pasted image 20250519172940.png",
     "To Be Noted.md",
@@ -219,10 +223,8 @@
     "libfprint-2-tod1-broadcom/var/lib/fprint/fw/bcmCitadel_7.otp",
     "libfprint-2-tod1-broadcom/var/lib/fprint/fw/bcmCitadel_1.otp",
     "libfprint-2-tod1-broadcom/var/lib/fprint/fw",
-    "Enterprise Engineering/Storage Technologies.md",
     "Untitled.md",
     "Golang/RAID sample.md",
-    "Enterprise Engineering/Linux/To Note.md",
     "Golang/Errors.md",
     "Programming/Stack vs Heap.md",
     "Programming/RegEx.md",
@@ -241,8 +243,6 @@
     "Linux/The Kernel.md",
     "Enterprise Engineering/NetApp/Troubleshooting.md",
     "Golang/Structs.md",
-    "Golang/Slices & Arrays.md",
-    "Golang/Interfaces.md",
     "Golang/channels.png",
     "Programming/Stack_use.png",
     "Screenshot_2025-04-08_22-39-32.png",

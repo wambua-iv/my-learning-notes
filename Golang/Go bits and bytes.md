@@ -1,4 +1,4 @@
-
+ 
 Go does not have a concept of absence of value
 representing a null value may necessitate creating a nil pointer
 
@@ -17,7 +17,23 @@ In Go, **predeclared identifiers** are special names that are built into the l
 
 > [!NOTE] Shadowing
 >  `:=` reuses only variables that are declared in the current block. When using `:=`, make sure that you don’t have any variables from an outer scope on the lefthand side unless you intend to shadow them.
+> 	 -> be cautious with shadowed variable, out values may not have the value assigned
 
+
+```go 
+// variable shadowing
+var client *http.Client
+//simulate a tracing condition
+if tracing {
+	client, err := createCleintWithTracing()
+	// coded
+} else {
+	client, err := clientWithoutTracing()
+}
+
+```
+ => Results in an error `client is declared but not used`
+	  -> the variables in the {} blocks are local to their scope
 `var` keyword initializes a variable to its zero value
 
 ```go
@@ -33,6 +49,9 @@ for i, num := range friends {
 /// in this version the for range function works on a copy of the data
 ```
 
+evaluation of the range operator is done at the beginning of the loop
+	-> During the iteration the value of the loop is not re-evaluated.
+	-> To affect the original value, either use pointers or the [pointer schematic] version of the range operator
 Do not use `range` to iterate over user defined container types
 
 #### Implicit conversion 

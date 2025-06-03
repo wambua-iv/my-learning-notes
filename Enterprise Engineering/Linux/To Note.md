@@ -1,7 +1,9 @@
 
 SCP 
 SSH
+fscak
 
+mounting
 
 
 
