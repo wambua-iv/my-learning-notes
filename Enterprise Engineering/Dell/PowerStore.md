@@ -195,14 +195,17 @@ Use these connection settings:
 	#(config-if-ma-1/1/1) ip address 172.17.57.20/24
 	#(config-if-ma-1/1/1) exit
  => `management route <IP/netmask gateway>` to define the default gateway manage the system
- =>  ntp server <IP> to set the NTP server IP address.
+ =>  ntp server [IP] to set the NTP server IP address.
 
-###VLAN creation
+##### VLAN creation
 
-	#(config) interface vlan  <ID
-	>1502
+	#(config) interface vlan  ID 1502
 	#(conf-if-vl-1502) description Storage_Network
 	#(conf-if-vl-1502) no shutdown
 	#(conf-if-vl-1502) exit
 
-<Configure VLT>
+[Configure VLT]
+
+
+### Service Port Access
+For the **PowerStore Manager (UI)**, use https://128.221.1.250 or 251. UI access requires management services, which only run on the primary node on PowerStoreOS Version 1 and 2, and on the [non-primary Node] on PowerStoreOS version 3 and higher. If node A's IP does not work, try node B's IP address. The UI (PowerStore Manager) may not be accessible if management services or control path are not running or are experiencing issues.

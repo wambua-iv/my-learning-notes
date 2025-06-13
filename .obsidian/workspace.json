@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Kubernetes/KCNA.md",
+                "file": "Enterprise Engineering/Huawei Training/Storage.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "KCNA"
+              "title": "Storage"
             }
           },
           {
@@ -201,16 +201,22 @@
   },
   "active": "8fbc1f5e142c88b1",
   "lastOpenFiles": [
+    "Golang/Pointers.md",
+    "Golang/Maps.md",
+    "Golang/Interfaces.md",
+    "Go-ey links.md",
     "Kubernetes/K8s intro.md",
+    "Kubernetes/POD.md",
     "Kubernetes/KCNA.md",
+    "Untitled.md",
+    "Enterprise Engineering/Huawei Training/Storage.md",
+    "Pasted image 20250605100850.png",
+    "Enterprise Engineering/Storage Technologies.md",
+    "Enterprise Engineering/Dell/PowerStore.md",
     "Golang/Go bits and bytes.md",
     "Golang/Try Outs.md",
-    "Enterprise Engineering/Huawei Training/Storage.md",
-    "Enterprise Engineering/Storage Technologies.md",
-    "Go -ey links.md",
     "Enterprise Engineering/Linux/To Note.md",
     "Golang/Garbage Collection.md",
-    "Kubernetes/POD.md",
     "Pasted image 20250519172940.png",
     "To Be Noted.md",
     "libfprint-2-tod1-broadcom/var/lib/fprint/fw/key.pem",
@@ -223,7 +229,6 @@
     "libfprint-2-tod1-broadcom/var/lib/fprint/fw/bcmCitadel_7.otp",
     "libfprint-2-tod1-broadcom/var/lib/fprint/fw/bcmCitadel_1.otp",
     "libfprint-2-tod1-broadcom/var/lib/fprint/fw",
-    "Untitled.md",
     "Golang/RAID sample.md",
     "Golang/Errors.md",
     "Programming/Stack vs Heap.md",
@@ -232,21 +237,16 @@
     "Fun Bytes.md",
     "Enterprise Engineering/Huawei Training/SAN-NAS.png",
     "Enterprise Engineering/Huawei Training/Active-Active.png",
-    "Golang/Maps.md",
     "Untitled.canvas",
     "2025-05-03.md",
-    "Enterprise Engineering/Dell/PowerStore.md",
     "Enterprise Engineering/Networking/Random tid bits.md",
     "Golang/Concurrency.md",
     "Enterprise Engineering/Dell/connectivitytypes.png",
     "Enterprise Engineering/Dell/Screenshot_2025-04-29_12-17-18.png",
     "Linux/The Kernel.md",
-    "Enterprise Engineering/NetApp/Troubleshooting.md",
-    "Golang/Structs.md",
     "Golang/channels.png",
     "Programming/Stack_use.png",
     "Screenshot_2025-04-08_22-39-32.png",
-    "Programming/stack_v_heap.png",
-    "Screenshot_2025-04-08_22-34-31.png"
+    "Programming/stack_v_heap.png"
   ]
 }

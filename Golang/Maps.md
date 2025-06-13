@@ -6,7 +6,7 @@ Empty maps return the zero value of the maps value
 ranging over maps is __unpredictable__ 
 
 Reading and making use of maps is always gonna work on copies 
- ##{pointer schematics will not work on maps}## 
+ ## {pointer schematics will not work on maps}
  the value being passed around is just a pointer
 
 to make changes on a value in a map, create a copy of the map value, make changes to the value and assign the changed value to the map.

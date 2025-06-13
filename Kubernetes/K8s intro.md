@@ -9,6 +9,9 @@ Container orchestrators are tools which group systems together to form clusters 
 
 _"Kubernetes is an open-source system for automating deployment, scaling, and management of containerized applications"._
 
+
+#### Namespace 
+= used to divide a cluster into multiple virtual clusters, which can be used for multi-tenancy when multiple teams share a cluster
 ## Control Panel
 __control plane__ node provides a running environment for the control plane agents responsible for managing the state of a Kubernetes cluster,
 To *persist the Kubernetes cluster's state*, all cluster configuration data is saved to a **distributed key-value store** which only holds cluster state related data
@@ -20,6 +23,8 @@ node controller checks the state of each node every 5 seconds
 	All the administrative tasks are coordinated by the kube-apiserver
 	- can scale horizontally, but it also supports the addition of custom secondary API Servers, 
 	- a configuration that transforms the primary API Server into a proxy to all secondary, custom API Servers, routing all incoming RESTful calls to them based on custom defined rules.
+		- **Admission Controllers** apply to requests that create, delete, or modify objects. Admission controllers can also block custom verbs, such as a request to connect to a pod via an API server proxy. 
+		- Admission control mechanisms may be _validating_, _mutating_  incoming Kubernetes API requests based on cluster policies.
 
 => __Scheduler__ 
 	- kube-scheduler is to assign new workload objects, such as pods encapsulating containers, to nodes - typically worker nodes 
@@ -74,11 +79,16 @@ The name of a Node object must be a valid [DNS subdomain name](https://kubernete
 Node [names] must be unique
  Node configuration needs to be updated, it is a good practice to re-register the node with the API server
 
+#### Kubelet
+Ensures containers described in PodSpecs assigned to its node are running
 ### Networking
 container runtime _creates an isolated network space_ for each container it starts
 	- networking namespace can be shered with other containers or the host operating system
 	- Containers grouped into a Pod a [pause container] is started to create a network namespace for the Pod
 #pod-to-pod => across nodes
+mapping of ports from the container to the host
+service mesh adds a proxy server to _every_ container that you have in your architecture
+
 
 
 
@@ -104,19 +114,36 @@ DaemonSets [further reading]
 	= Designed to manage node agents
 	=  present a distinct feature that enforces a single Pod replica to be placed per Node, on all the Nodes or on a select subset of Nodes.
 
+Stateful set
+runs a group of Pods, and maintains a sticky identity for each of those Pods. This is useful for managing applications that need persistent storage or a stable, unique network identity
+A Headless Service is used to control the network domain.
+
 Application Quotas can be enforced using admission control
 
-__Service__ 
+##### ResourceQuota vs LimitRange
+
+| Feature               | `ResourceQuota` 🌐                          | `LimitRange` ⚙️                                            |
+| --------------------- | ------------------------------------------- | ---------------------------------------------------------- |
+| **Scope**             | **Applies to the entire namespace**         | Applies **per pod or container**                           |
+| **Purpose**           | **Restrict total usage** in a namespace     | **Set default/min/max resource values**                    |
+| **Controls**          | Total CPU, memory, object count, etc.       | Per-container CPU/memory limits/requests                   |
+| **Enforcement Level** | Namespace-wide accounting                   | Container-level enforcement                                |
+| **Common Use Case**   | Prevent a team from consuming all resources | Prevent pods without limits from running wild              |
+| **Fails if exceeded** | Yes — pod will not schedule                 | Yes — pod creation/edit will be rejected if outside limits |
+
+#### __Service__ 
+=> abstraction to expose groups of Pods over a network. Each Service object defines a logical set of endpoints(pods) and method of access of the pods
 = logically groups Pods and defines a policy to access them
 -> grouping is achieved via Labels and Selectors
 
-### Ingress
+#### Ingress
 
 routing rules are associated with a given Service
 ingress controller is watching its corresponding ingress resource, the ingress resource definition manifest needs to include an ingress class name, such as spec.ingressClassName: nginx 
 
 #### Annotations
-are not used to identify and select objects. 
+~~are not used to identify and select objects.~~ 
+annotations to attach arbitrary non-identifying metadata to objects.
 Annotations can be used to:
 - Store build/release IDs, PR numbers, git branch, etc.
 - Phone/pager numbers of people responsible, or directory entries specifying where such information can be found.
@@ -128,9 +155,25 @@ Annotations can be used to:
 [Security Contexts and Pod Security Admission]
 
 
+|Feature|**ConfigMap**|**Secret**|
+|---|---|---|
+|🔐 **Purpose**|Store **non-sensitive** configuration data|Store **sensitive** data like passwords, tokens|
+|🔐 **Encryption**|Stored **in plain text** (base64 not encoded)|Stored **base64-encoded** (can be encrypted at rest)|
+|📦 **Typical Use**|App configs, URLs, env vars|API keys, passwords, certificates|
+|🔍 **Visibility**|Readable by anyone with access to the API|Access-controlled by RBAC|
+|🔁 **Change Behavior**|Config changes may **not auto-reload**|Same — both require re-mounting or restart|
+|📄 **Mounted As**|Volume, Env Var|Volume, Env Var|
 ## Kubectl
 
 use a kubectl version that is within one minor version difference of your cluster
+
+##### Resource creation
+| Command          | Description                                                                                                                | Use                                                             |
+| ---------------- | -------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
+| `kubectl create` | Creates a resource **once** from a manifest. **Fails if it already exists**.                                               | to create a new resource.                                       |
+| `kubectl apply`  | Creates or **updates** a resource by applying a declarative configuration file. Supports **idempotency** and **patching**. | to **reconcile** the desired state in YAML with what's running. |
+
+
 
 
 ## Procedure
@@ -146,14 +189,6 @@ The **`kube-scheduler` configuration file** is used to customize how the Kuberne
  etcd member must have a unique name within an etcd cluster. Set the etcd name to match the hostname of the current compute instance:
 
 
-
-
-
-
-
-
-
-
 ### kube-apiserver.service systemd
 
 Manages the kube-api, central control plane component
@@ -162,8 +197,16 @@ Manages the kube-api, central control plane component
 	-> Kubernetes Lifecycle Management
 
 
+### YAML fields
+
+spec.containers[].resources.requests => defines the minimum amount of compute resources (CPU and memory) that the container is guaranteed to get.
 
 
+#### Container creation via Kubelet
+The kubelet uses the CRI gRPC API to manage container lifecycles through the runtime. It starts by creating a pod sandbox, then app containers, and monitors them continuously.
+- Use a **Role** when you want to grant access **within a specific namespace**.
+    
+- Use a **ClusterRole** when you need access to **cluster-wide resources** or need to **reuse the same rules across namespaces**.
 
 
 
@@ -235,3 +278,16 @@ Let me know if you want a diagram or example of how kubeadm lays out these files
 
 -> grouping is achieved via Labels and Selectors
 
+the **"noisy neighbor" effect** happens when **one pod or container consumes excessive resources** (CPU, memory, disk I/O, etc.), negatively impacting others **on the same node**
+
+
+`kubectl api-resources` => list the available objects in your cluster
+`kubectl explain pod` => to know more about a pod
+__InitContainers__ to start containers before your main application starts
+second container that supports your main application is called a **sidecar container**
+choose a Service Mesh over just using Kubernetes NetworkPolicies when you need more advanced security, observability, and traffic control features beyond what NetworkPolicies can provide.
+
+
+In the context of a **Service Mesh**, **traffic splitting** refers to the ability to **divide and route a percentage of traffic** between different versions of a service.
+
+A NetworkPolicy in Kubernetes plays the role of controlling network traffic at the Pod level, specifically for L3/L4 (IP/port) communication

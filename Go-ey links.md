@@ -1,3 +1,4 @@
+
 [guide/style.md at master · uber-go/guide (github.com)](https://github.com/uber-go/guide/blob/master/style.md)
 [dariubs/GoBooks: List of Golang books (github.com)](https://github.com/dariubs/GoBooks?tab=readme-ov-file#2022---pro-go)
 [We Need To Talk About The Bad Sides of Go | by Aviv Carmi | ITNEXT](https://itnext.io/we-need-to-talk-about-the-bad-sides-of-go-568a1e5adbc6)
@@ -33,7 +34,10 @@ https://www.reddit.com/r/golang/comments/1f2s9io/why_should_data_be_independent_
 [Handles are the better pointers](https://floooh.github.io/2018/06/17/handles-vs-pointers.html)
 [Andrew Kelley Practical Data Oriented Design (DoD)](https://www.youtube.com/watch?v=IroPQ150F6c)
 [Freelist allocator for Go](https://www.reddit.com/r/golang/comments/1fgvvc2/generic_freelist_allocator_for_go/)
-
+[Rory Sutherland – Are We Now Too Impatient to Be Intelligent? | Nudgestock 2024](https://www.youtube.com/watch?v=Bc9jFbxrkMk)
+[K8s Networking Essentials](https://www.inovex.de/de/blog/kubernetes-networking-part-1-en/)
+[Top 20 Dockerfile best practices](https://sysdig.com/learn-cloud-native/dockerfile-best-practices/)
+[KodeCloud Skills Tests](https://kodekloud.com/pages/skills-test)
 
 
 
@@ -55,3 +59,6 @@ RECOMMENDED BOOKS
 https://dl3.netpaak.ir/media/media.plus/
 https://se7en.ws/euro-truck-simulator-2/?lang=en
 https://chatgpt.com/share/6800b6f4-8fd4-8011-b020-bfcb46d18d4c
+
+
+Fearless Organization

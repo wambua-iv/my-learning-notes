@@ -249,6 +249,15 @@ scale-out storage system supports node-level security and cabinet-level security
 [Redirect on Write]
 
 
+
+[SmartQuota]
+	- Space soft quota: sets the limit for the space usage alarm. When the used space exceeds this quota, the system reports an alarm and prompts users to delete unnecessary files or increase the quota. Users can continue to write data after the alarm.
+	- Space hard quota: restricts the maximum available space of a quota. When the used space reaches this quota, the system generates an error stating insufficient space
+	- File quantity soft quota: sets a limit for the file quantity alarm. When the number of files exceeds this quota, the system reports an alarm and prompts users to delete unnecessary files or increase the quota. Users can continue to create files or directories after the alarm
+	- File quantity hard quota: restricts the maximum available file quantity of a quota. When the number of files reaches this quota, the system generates an error stating insufficient space
+
+
+
 Cross-Level Rollback refers to restoring a system (volume, VM, or file system) not to the most recent snapshot, but to a specific earlier point in a snapshot chain or hierarchy
 
 |Feature|Description|
@@ -268,3 +277,78 @@ End to End full mesh interconnection
 	- any two controllers are directly connected by two links
 		- controllers in an enclosure are symmetrically connected by twelve 100 Gbit/s RDMA links
 		- Each module connects to the four controllers in a controller enclosure and can be accessed by the four controllers simultaneously
+
+[SmartVirtualization](https://support.huawei.com/enterprise/en/doc/EDOC1100214952/77abcba5/working-principle)
+SmartVirtualization allows you to manage storage resources on heterogeneous storage systems, but you cannot perform any configuration operation on the heterogeneous storage systems
+SmartVirtualization is a value-added feature. If the heterogeneous storage system is a third-party device, you need a license for SmartVirtualization in the local storage system. If the heterogeneous storage system is a Huawei device (not including OEM devices), you do not need a license for SmartVirtualization.
+
+[Distribute Parallel Client]
+	- deployed on compute nodes for OceanStor Pacific, allowing singular clients to connect to multiple storage node
+
+**M-LAG (Multi-Chassis Link Aggregation Group)** with **InfiniBand (IB)**
+	-This setup provides active-active transmission similar to M-LAG — but handled at IB transport + subnet manager layer, not L2 Ethernet.
+
+
+• ProtectClient: Protects application data on hosts. Applications to be protected
+determine agent software to be installed.
+• Data protection layer: Processes data protection services. The container-based
+deployment mode and a distributed architecture are used.
+▫ ProtectManager: Data management module that schedules backup,
+recovery, archive, and replication jobs.
+▫ DataMover Engine: Data flow module that processes data of backup,
+recovery, replication, archive, and copy mount.
+▫ DataEnable Engine: Data enablement module that is responsible for global
+search and data anonymization.
+• Storage layer: Basic storage platform that is responsible for protocol access and
+file system management.
+• Hardware layer: Provides hardware and related drivers. 
+![[Pasted image 20250605100850.png]]
+
+
+
+one storage system fails, hosts automatically choose the paths to the other storage system for service access. If the replication links between the storage systems fail, only one storage system can be accessed by hosts, which is determined by the arbitration mechanism of HyperMetro
+
+You can set one site as the preferred site, which takes precedence in arbitration.
+
+Global caching: Each LUN is divided into slices and then evenly distributed
+to all of the controllers with the distributed hash table, or DHT algorithm
+for parallel processing. Write requests are written to the global cache, and
+read requests are prefetched and hit in the global cache. Cache flushing
+and prefetch requests are also concurrently processed on each controller.
+
+Synchronous Replication
+The data of the write request is written to both the primary and secondary LUNs
+
+
+
+OceanStor 5610-01
+
+DeviceManager URL: [https](https://10.175.210.111:8088/)[://](https://10.175.210.111:8088/)[10.175.210.115:8088](https://10.175.210.111:8088/)
+
+account:admin passwd:Hangzhou12#$
+
+OceanStor SNS3664 URL: [https://](https://10.175.210.209/)[10.175.210.209](https://10.175.210.209/)
+
+account:admin passwd:Huawei12#$
+
+Storage IP Range：10.175.212.81-10.175.212.88,netmask:255.255.255.0,gateway:10.175.212.1
+
+|   |   |   |   |   |
+|---|---|---|---|---|
+|SmartKit/Host|ManageMent IP Address|Storage IP Address|Account|Password|
+|win10-SmartKit(for_5610)|10.175.210.49|NA|Admin|Huawei12#$|
+|Business Server|10.175.211.29|10.175.212.89|user01|Hangzhou12#$|
+|root|Hangzhou12#$|
+
+
+Zone Configuration Zone Name Zone Alias Port cfg-test TS200-2280-OceanStor-5610-01 path01 1,16;1,12 TS200-2280-OceanStor-5610-02 path02 1,16;1,13 TS200-2280-OceanStor-5610-03 path03 1,16;1,14 TS200-2280-OceanStor-5610-04 path04 1,16;1,15 TS200-2280-OceanStor-5610-05 path05 1,17;1,12 TS200-2280-OceanStor-5610-06 path06 1,17;1,13 TS200-2280-OceanStor-5610-07 path07 1,17;1,14 TS200-2280-OceanStor-5610-08 path08 1,17;1,15
+
+
+
+
+
+[certain dumps](https://www.scribd.com/document/865466731/H13-624-V5-5-Huawei-Exam-Practice-Questions)
+[certain dumps 2](https://www.scribd.com/document/796458375/H13-624-V5-5-ENU-Dumps-HCIP-Storage-V5-5)
+
+# Intelligent Multi-core Technology
+consists of CPU grouping, service grouping, and lock-free design between cores.
