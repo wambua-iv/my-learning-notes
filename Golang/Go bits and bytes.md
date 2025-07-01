@@ -1,4 +1,5 @@
- 
+ Emphasis on code clarity and readability against unnecessary complexity
+ [happy path column]
 Go does not have a concept of absence of value
 representing a null value may necessitate creating a nil pointer
 
@@ -18,6 +19,7 @@ In Go, **predeclared identifiers** are special names that are built into the l
 > [!NOTE] Shadowing
 >  `:=` reuses only variables that are declared in the current block. When using `:=`, make sure that you don’t have any variables from an outer scope on the lefthand side unless you intend to shadow them.
 > 	 -> be cautious with shadowed variable, out values may not have the value assigned
+> 	 => Assess variable shadowing against temporary variable creation
 
 
 ```go 
@@ -48,6 +50,8 @@ for i, num := range friends {
 }
 /// in this version the for range function works on a copy of the data
 ```
+
+The [range] expression is evaluated on the first iteration, any updates to the expression value does not modify the number of iterations
 
 evaluation of the range operator is done at the beginning of the loop
 	-> During the iteration the value of the loop is not re-evaluated.
@@ -99,7 +103,7 @@ es := struct {}{}
 // empty literal notation
 ```
 
-:purple_square: `append` call => create *__value semantic mutation API__*  
+🟣`append` call => create *__value semantic mutation API__*  
 	* append gets its own copy of the slice value
 	* It mutates its own copy of the slice
 	* returns a new copy out 
@@ -150,18 +154,43 @@ Embedded types inner method promotion => doesn't happen automatically
 >[!tip]
 >Visibility in Go is at the package level. So you can hide details just as easily with separate data types and functions as you can with struct methods. Deciding which to use has more to do with the ergonomics for the caller.
 >
-Go interfaces let you reuse behavior with lots of different types. If you tightly couple behavior to one concrete data type you lose that ability.
+Go interfaces let you reuse behavior with lots of different types. If you tightly couple behavior to one concrete data type you lose that ability.[discover structs, not creating them from the beginning]
+>	“Program to an interface, not an implementation.”
 
 
-Attempt to take in concrete data and return the concrete data => ease of testing  
+Attempt to take in concrete data and return the concrete data => ease of testing [avoid returning interfaces]
 
 Only concrete data is moved around and `across program boundaries`
 
 __Runtime checks__
 
->“Program to an interface, not an implementation.”
+
 
 
 I/O bound workload for concurrency
 
 Arrays of different length cant be assigned to each other
+
+#### init functions
+= Cannot be invoked directly
+```go
+func init (){}
+
+func main(){
+	init()  // invalid reference
+}
+```
+Limited error management in an init function => 🗒️ does not [return an error]
+When a package is initialized all the constants  and variable declarations in the package are evaluated. 
+	- init functions come after this step
+	- Multiple init functions can be created in a package
+		🔷 - Execution order of the init function inside the package is based on the source files alphabetical order
+
+🟩 use cases
+	creating side effects
+
+
+
+
+
+Perhaps a little bit of duplicated code might occasionally be better if it improves other aspects such as code expressiveness.

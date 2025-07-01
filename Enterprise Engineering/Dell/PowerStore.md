@@ -10,6 +10,9 @@ Non-Volatile Memory Express (NVMe) [Non-Volatile Memory Express (NVMe) is a comm
 * NVMe and SAS SSDs by expansion
 * End-to-end NVMe_oF [Non-Volatile Memory Express over Fabric extends the NVMe protocol to connect hosts to storage appliances across a TCP/IP or Fiber Channel network fabric].(TCP and FC)
 
+Dynamic Resiliency Engine (DRE) - Proprietary algorithms provide drive redundancy to protect against drive failure
+Provides a more distributed, automated, and efficient way to protect data than traditional RAID
+
 **PowerStore T**
 
 Storage-centric—provides **Block-only** [Data is stored in separate blocks suited for applications requiring high performance and low latency.]**Unified** [Unified storage consists of block and file storage.]   
@@ -89,6 +92,9 @@ A 4-port card (MEZZ 0) is optional and only required for unified deployment (fil
 The 4-Port 32 Gb Fibre Channel I/O module is supported in PowerStore T and PowerStore X models. The I/O module is used to serve Fibre Channel block protocol using SAN to hosts. Each port has an optical 16 Gb/32 Gb
 
 - PowerStore supports NVMe/TCP over all front-end Ethernet ports.
+	- vSphere 7.0U3
+	- Red Hat Enterprise Linux 8.2-8.4
+	- SLES 15 SP2-SP3
 - All Ethernet modules support block access over NVMe and iSCSI simultaneously.
 
 Front Indication Panel
@@ -96,10 +102,22 @@ Front Indication Panel
 	- Blinking blue – System ID mode for identification of the enclosure in the rack
 	- Blinking Amber – Hardware fault
 
+Slot 0 has a 16
+lane PCIe channel, and Slot 1 has an eight lane PCIe channel. The 4-Port 32 Gb Fibre Channel I/O module or the 4-Port 25 GbE SFP-based I/O module should be installed in Slot 0 when possible. The 100 GB Ethernet I/O module must be installed in Slot 0
+
 =>* ==NVMe Supported Configurations==
 = A cluster may have both SAS and NVMe expansion enclosures, but not attached to the same appliance.
  = ENS24 expansion enclosure
  Requires NVMe connectivity from new embedded module v2, 100 GbE 2-Port card, or 4-port 25 GbE card for the PowerStore 500
+
+Drives may be added to the expansion enclosure one at a time or
+multiple drives simultaneously.
+Drives may move between base and ENS24 Expansion Enclosure
+Drives may move between different ENS24 expansion enclosures within the same appliance. Supported drives on ENS24 Expansion Enclosure:
+	NVMe SSD - PCIe, 1.92 TB – 15.36 TB (Raw capacity base-10)
+Supported drives on base enclosure:
+	NVMe SSD - PCIe, 1.92 TB-15.36 TB (Raw capacity base-10)
+	NVMe SCM SSD - PCIe, 750 GB (Raw capacity base-10)
 
 ==Top of Rack Switch==
 
@@ -209,3 +227,33 @@ Use these connection settings:
 
 ### Service Port Access
 For the **PowerStore Manager (UI)**, use https://128.221.1.250 or 251. UI access requires management services, which only run on the primary node on PowerStoreOS Version 1 and 2, and on the [non-primary Node] on PowerStoreOS version 3 and higher. If node A's IP does not work, try node B's IP address. The UI (PowerStore Manager) may not be accessible if management services or control path are not running or are experiencing issues.
+
+
+=>Licenses are permanent **no expiration**
+
+CLI Supported tasks include:
+	- Configuring and monitoring the system
+	- Managing users
+	- Provisioning storage
+	- Protecting data
+	- Controlling host access to storage
+
+
+
+### PowerStore T
+
+Management Network => can be on the native VLAN
+PowerStore node boots, it assigns itself an IP address 169.254.0.0/16
+{Initial Discovery Network} runs over the native VLAN only = uses  dedicated management port
+File Mobility is a prerequisite for replication and import of File storage
+	- PowerStore T model must have been deployed in Unified mode
+	- Three IP addresses must be reserved for File Mobility
+
+File Import network is used with the File Mobility network to import File
+storage from remote systems
+
+Ports 0 and 1 on the PowerStore T model appliance node are  reserved for the Cluster network.
+
+Replication and Block Import is a shared network. The Block Import network is not used for any File functionality. Only the Replication portion of the network, with File Mobility, is used for replication of File storage
+
+[One out-of-band (OOB) management switch and two Top-of-Rack (ToR)] switches are required for PowerStore T to support iSCSI or NVMe/TCP host connectivity.

@@ -38,7 +38,7 @@ https://www.reddit.com/r/golang/comments/1f2s9io/why_should_data_be_independent_
 [K8s Networking Essentials](https://www.inovex.de/de/blog/kubernetes-networking-part-1-en/)
 [Top 20 Dockerfile best practices](https://sysdig.com/learn-cloud-native/dockerfile-best-practices/)
 [KodeCloud Skills Tests](https://kodekloud.com/pages/skills-test)
-
+[DataStructure](https://sp19.datastructur.es/)
 
 
 
