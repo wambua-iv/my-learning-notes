@@ -472,3 +472,9 @@ interface port-channel 50
 interface ethernet 1/1/48
  description Uplink Link to Core
  channel-group 50 mode active
+
+
+
+
+
+ipaddrset -ip 192.168.10.10 -mask 255.255.255.0 -gw 192.168.10.1
