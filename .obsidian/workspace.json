@@ -13,12 +13,26 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Enterprise Engineering/Dell/PowerStore.md",
+                "file": "Enterprise Engineering/Huawei Training/Storage.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "PowerStore"
+              "title": "Storage"
+            }
+          },
+          {
+            "id": "de534d8824cb6112",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Deployment.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Deployment"
             }
           },
           {
@@ -35,7 +49,8 @@
               "title": "Storage"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -92,8 +107,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "a2fc5f22316f82cd",
@@ -185,20 +199,21 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "fa9776a534de9b65",
+  "active": "de534d8824cb6112",
   "lastOpenFiles": [
     "Enterprise Engineering/Huawei Training/Storage.md",
+    "Deployment.md",
+    "Go-ey links.md",
+    "Enterprise Engineering/Dell/PowerStore.md",
     "Golang/Interfaces.md",
     "Golang/Generics.md",
     "Golang/Go bits and bytes.md",
     "Golang/Concurrency.md",
     "Golang/channels.png",
-    "Enterprise Engineering/Dell/PowerStore.md",
     "Pasted image 20250630144156.png",
     "Pasted image 20250630124317.png",
     "VMWare/Disk Provisioning.md",
     "Golang/Structs.md",
-    "Go-ey links.md",
     "Enterprise Engineering/Linux/To Note.md",
     "Linux/The Kernel.md",
     "Programming/Stack vs Heap.md",
@@ -228,7 +243,6 @@
     "libfprint-2-tod1-broadcom/var/lib/fprint/fw/bcmCitadel_1.otp",
     "libfprint-2-tod1-broadcom/var/lib/fprint/fw",
     "Golang/RAID sample.md",
-    "Golang/Errors.md",
     "Enterprise Engineering/Huawei Training/SAN-NAS.png",
     "Enterprise Engineering/Huawei Training/Active-Active.png",
     "Enterprise Engineering/Dell/connectivitytypes.png",

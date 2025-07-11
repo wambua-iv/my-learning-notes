@@ -1,4 +1,4 @@
-=> 
+ 
 Scale up => add disk capacity
 Scale Out =>  Adding storage processors
 Back-end PCIe => used internally in the system
@@ -7,6 +7,8 @@ IP Scale-out is used for entry-level and mid-range converged storage V3 and V5
 series, converged storage x10 V5 Kunpeng series, Dorado series, and new-gen
 hybrid storage series. PCIe Scale-out is used for converged storage 18000 V3,
 18000 V5, and Dorado V3 series.
+provides four storage protocols: block, object, HDFS, and
+file.
 
 On high-end models, each controller has four CPUs, or
 vNodes. On mid-range models, each controller has two vNodes. 
@@ -99,12 +101,18 @@ distinction between SAN and NAS logical semantics
 
 [SmartMatrix Full-Mesh Hardware Architecture]
 A smart disk enclosure has two groups of uplink ports and can connect to two controller enclosures, implementing full interconnection between the disk enclosure and eight controllers.
+	LUNs are shared. Host requests of each LUN are sliced and distributed to all controllers for parallel processing
+	new controllers to a controller enclosure results in automatic balancing of existing LUN or file system services among all controllers
 
 [E2E full-mesh]
 	- FE interconnection  and Sharing among the Four controllers
 		- I/O modules are fully interconnected with all  controllers in the enclosure
 	- Fully interconnected Controllers
 	- Back-end interconnection and sharing among eight controllers. [Back-end	interconnect I/O modules are used for expansion]. Each module connects to the four controllers in a controller enclosure and can be accessed by the	four controllers simultaneously
+[global sharing of cache]
+	- Each LUN is divid-ed into slices and then evenly distributed to all of the controllers
+	- Write requests are written to the global cache, and read requests are prefetched and hit in the global cache. Cache flushing and prefetch requests are also concurrently processed on each controller
+	- system uses RAID 2.0+ to create a global storage pool over multiple controller enclosures
 
 [Active-Active High Availability Architecture]
 ![[Active-Active.png]]
@@ -204,8 +212,7 @@ Synchronous
 		-> The system returns the write result of the primary LUN to the host.
 		 {synchronization is started later, the data blocks corresponding to the log address are replicated again}
 Asynchronous
-	- initial synchronization is implemented by default to copy all • USM user: When SNMPv3 is used for data transmission, you need to set a USM
-user to perform authentication and data encryption for SNMPv3.data from the primary LUN to the secondary LUN.
+	- initial synchronization is implemented by default to copy all data from the primary LUN to the secondary LUN.
 	- asynchronous replication synchronization task is started, snapshots are generated for primary and secondary LUNs, and the points in time of these two LUNs are updated.
 		- snapshot of the primary LUN is X and that of the secondary LUN is X
 	- host is cached at the point in time X + 1 in the primary LUN cache [host receives a write success]
@@ -299,7 +306,7 @@ End to End full mesh interconnection
 		- Each module connects to the four controllers in a controller enclosure and can be accessed by the four controllers simultaneously
 
 [SmartVirtualization](https://support.huawei.com/enterprise/en/doc/EDOC1100214952/77abcba5/working-principle)
-SmartVirtualization allows you to manage storage resources on heterogeneous storage systems, but you cannot perform any configuration operation on the heterogeneous storage systems
+SmartVirtualization allows you to manage storage resources on heterogeneous storage systems, but you [cannot perform any configuration] operation on the heterogeneous storage systems
 SmartVirtualization is a value-added feature. If the heterogeneous storage system is a third-party device, you need a license for SmartVirtualization in the local storage system. If the heterogeneous storage system is a Huawei device (not including OEM devices), you do not need a license for SmartVirtualization.
 
 [Distribute Parallel Client]
@@ -332,7 +339,7 @@ file system management.
 • Hardware layer: Provides hardware and related drivers. 
 ![[Pasted image 20250605100850.png]]
 
-[SamrtMigration]
+[SmartMigration] data migration based on LUNs.
 	- When the system receives new data during migration, it *writes the new data to*
 *both the source and target LUNs simultaneously* and records **data change logs**
 (DCLs) to ensure data consistency. After the migration is complete, the source and
@@ -343,6 +350,12 @@ SmartMigration is implemented in two stages:
 [LUN information exchange]
 	Response is sent after data is written to both source and target 
 one storage system fails, hosts automatically choose the paths to the other storage system for service access. If the replication links between the storage systems fail, only one storage system can be accessed by hosts, which is determined by the arbitration mechanism of HyperMetro
+		= Data migration for capacity, performance, and reliability adjustments For example, a LUN can be migrated from one storage pool to another.
+		= Storage system upgrade with SmartVirtualization SmartMigration works with SmartVirtualization to migrate data from legacy storage systems
+
+[SmartThin] => thin provisioning
+
+
 
 You can set one site as the preferred site, which takes precedence in arbitration.
 
@@ -470,3 +483,99 @@ indicator
 [SmartQoS]
 	- I/O queue management allocates storage resources by tokens
 	- system allocates tokens based on the objective to control traffic.
+	- Volume-based I/O traffic control management algorithm
+	- QoS traffic control management is implemented by 
+		- volume I/O queue management 
+		- token allocation
+		- dequeuing control.
+		system determines the performance upper limit of each VBS node by coordinating the distributed traffic control parameters and then converts the performance upper limit into a specified number of tokens
+			Volume-based I/O queue management uses the token mechanism to allocate storage resource
+		tenant-level and namespace-level QoS control does not apply to a specific service
+		SmartQoS allows you to create and manage QoS objects to implement QoS control at different granularities. After QoS control is configured for any tenant, namespace, or client IP address, a corresponding QoS object is generated
+
+[smartEqualizer] load balancing options
+	- Round-robin (default): The system selects nodes in sequence to process client connection requests.  
+	- CPU usage: The system selects the node with the lowest CPU usage to process client connection requests.
+	- Number of node connections: The system selects the node with the fewest file service connections to process client connection requests.
+	-  Node throughput: The system selects the node with the lowest network throughput to process client connection requests.
+
+[HyperClone]
+	- The source and target LUNs or file systems that form a clone pair must have the same capacity.
+	- target LUN or file system has data, the data will be overwritten by the source LUN or file system
+	- data synchronization status includes [Synchronizing], [Sync],[paused], [Unsynchronized], or [Normal].
+
+FlashLink
+
+
+
+
+### [Parallel File System]
+
+distributes metadata to multiple nodes by directory. In this way, metadata is owned and small I/Os can be forwarded to the owning node for direct processing
+ge I/Os are written to disks in passthrough mode,
+improving bandwidth. Small I/Os are written to disks after aggregation through
+cache
+OceanStor Pacific uses two-level indexes. The fixed-
+length large-granularity primary index ensures sequential read/write
+performance of large I/Os. Sub-indexes can be automatically adapted based on
+I/O sizes to avoid write penalties when small I/Os are written.
+
+
+XTS-AES-128, XTS-AES-256, and SM4-XTS encryption algorithms
+
+SAN and NAS protocols are isolated. iSCSI, NFS, and CIFS support DTOE offloading
+
+
+
+### [Network Plane Division]
+##### [Management network]: connects to customers' management network to enable system management and maintenance 
+[Internal management] network: enables data communication between storage and management nodes	
+[External management] network: enables clients to access the management interface, RESTful APIs, and the CLI,
+##### [Storage network]: enables service data communication between all nodes in the
+system
+[Front-end storage network] processes front-end data between storage nodes. It enables communication between VBS and compute nodes
+[Back-end storage network] processes back-end communication data
+between OSDs on storage node
+##### [Service Network]: interconnects with customers' application systems and accesses storage devices through iSCSI protocols.
+##### [Replication network]: enables data synchronization and replication among replication nodes.
+##### [Quorum network]: enables communication between clusters and the active-active quorum server.
+
+
+Controller enclosure [25 SAS ssd] => SAS interface/100Gbits RDMA
+controller enclosure [36 NVMe ssd] => 100Gbits RDMA
+
+Active-Active Basic Architecture
+	Distributed active -active architecture
+	E2E full-stack offload
+	Global resource sharing
+
+
+Multiple cache copies indicate that the real-time mirroring of cache data has
+three copies
+Only high-end all-NVMe storage systems support three copies. Mid-range storage systems support only two copies.
+
+
+Technical highlights of HyperReplication
+	[load balancing]
+	[Data compression] => using fast LZ4 algorithm
+	[Quick Response to Host]
+	[Splitting/switch  over/ rapid fault recovery]
+	[consistency group]
+	[Support for fan-in/fan-out] => hyperReplication supports data replication from 64 storage devices to one storage device for central backup (64:1 fan-in/fan-out),
+	[Support for various types of replication links]
+	[Entry-level, mid-range, and high-end storage interworking]
+	[Cross-array snapshot data synchronization] ->  User snapshots of the primary LUN can be synchronized to the secondary LUN in sequence.
+
+
+
+A snapshot can be read immediately after being generated.
+
+
+Non-prefetch | Smart prefetch | Constant prefetch | Variable prefetch
+
+
+Excessive prefetch
+Insufficient prefetch
+
+
+
