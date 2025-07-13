@@ -22,7 +22,10 @@ switching"
 #(conf-if-eth1/1/26) flowcontrol receive off
 #(conf-if-eth1/1/26) flowcontrol transmit off
 #(conf-if-eth1/1/26) end
-####################################################
+#######################################
+<ghj>
+
+
 Management Switch
 # configure terminal
 # hostname MgmtSwitch
@@ -218,7 +221,7 @@ Activate Port For Uplink
 
 # copy running-configuration startup-configuration
 # exit
-==================================================================================
+=================================================================
 
 show interface port-channel brief
 show lacp neighbor
@@ -415,7 +418,7 @@ vlan 30
  name NFS
 
 ! Create vLT Peer-Link Port-Channel
-interface port-channel 100
+interface port-channel 100show ip interface brief
  description vLT Peer Link to S4128F-1
  switchport mode trunk
  mtu 9216
@@ -478,3 +481,58 @@ interface ethernet 1/1/48
 
 
 ipaddrset -ip 192.168.10.10 -mask 255.255.255.0 -gw 192.168.10.1
+
+
+show ip interface brief
+
+sudo apt install multipath-tools
+sudo multipathd show paths
+sudo nano /etc/multipath.conf
+
+sudo systemctl enable multipathd
+sudo systemctl restart multipathd
+
+---------------------------------------------------------------------------
+defaults {
+    user_friendly_names yes
+    find_multipaths yes
+}
+
+blacklist {
+    devnode "^sda"    # Exclude OS disk
+}
+
+devices {
+    device {
+        vendor "DELL"
+        product "Unity|PowerStore"
+        path_grouping_policy group_by_prio
+        path_checker tur
+        prio alua
+        failback immediate
+        hardware_handler "1 alua"
+        no_path_retry 60
+        rr_weight uniform
+    }
+}
+
+
+
+
+
+---------------------------------------------------------------------------
+
+sudo mkfs.ext4 -E discard /dev/mapper/<disk>
+
+/dev/mapper/mpatha   =>  virtual disk
+
+sudo mkdir /mnt/<mapping point>
+sudo mount -o discard /dev/mapper/mpatha1 /mnt/<mounting point>
+
+
+/etc/fstab
+/dev/mapper/mpatha1 /mnt/powerstore-lun ext4 defaults,discard,_netdev 0 0
+
+
+findmnt -o TARGET,FSTYPE,OPTIONS /mnt/powerstore-lun
+ 
