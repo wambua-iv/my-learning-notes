@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Enterprise Engineering/Huawei Training/Storage.md",
+                "file": "Deployment.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Storage"
+              "title": "Deployment"
             }
           }
         ]
@@ -98,7 +98,7 @@
         "state": {
           "type": "backlink",
           "state": {
-            "file": "Enterprise Engineering/Huawei Training/Storage.md",
+            "file": "Deployment.md",
             "collapseAll": false,
             "extraContext": false,
             "sortOrder": "alphabetical",
@@ -155,5 +155,7 @@
     }
   },
   "active": "ee2650b421bfb29f",
-  "lastOpenFiles": []
+  "lastOpenFiles": [
+    "Enterprise Engineering/Huawei Training/Storage.md"
+  ]
 }
