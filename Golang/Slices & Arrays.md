@@ -60,3 +60,24 @@ decoding and un-marshalling require pointer schematics
 Arrays are a special data structure in Go that allow us to allocate contiguous blocks of fixed size memory.
 
 
+
+# Slice weirded 🤪 behavior
+
+Modifications to the contents of a slice is reflected in the original
+⇒ Using `append` to change a slice’s length doesn’t get reflected in the original array/slice.
+Slice is implemented as a struct with 3 fields:
+
+#1. ⇒ `int` field for length
+#2. ⇒ `int` field for capacity
+#3. ⇒ pointer to a block of memory
+
+
+Changes to values in a slice, changes the memory that the pointer points to.
+Appending to the copy slice:
+	⇒ length changes in the copy slice
+	⇒ values stored in the shared by the copy and original
+	⇒ length in the original remains unchanged.
+
+The go runtime prevents the original slice from seeing the values since there are beyond the length of the original slice.
+
+Slices passed to a function can have its contents modified, but can’t be resized

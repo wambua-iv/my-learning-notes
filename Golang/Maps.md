@@ -1,6 +1,9 @@
 
 Empty maps return the zero value of the maps value
 
+>💡Maps are implemented as a pointer to a struct. Passing maps around means that you are coping a pointer.
+
+Maps don’t allow for duplicate values to be stored
 `comma ok value` => checking for key presence in a map
 
 ranging over maps is __unpredictable__ 
@@ -20,7 +23,9 @@ In built data type that allows for association of one value to another.
 ⇒ maps are not *comparable* using `==` or `≠`
 
 ```go
-var nonNilMap map[int]string
+var NilMap map[int]string 
+//🟥 cannot be written to causes runtime panic
+//🔷 reading from a nil map leads to returning zero value
 
 //short mode
 totalWinsAgainst := map[string]int{}
@@ -37,12 +42,9 @@ Maps don’t allow for duplicate values to be stored
 = Keys used for maps can be comparable types. (`slices` and `maps` cannot be used as keys)
 
 _Comma, ok_ idiom
-
 = assigns results of a map to two variables,
-
-→the first gets the value associated with the key
-
-→the second value returned is a boolean
+	→the first gets the value associated with the key
+	→the second value returned is a boolean
 
 Maps are like slices in several ways:
 * Maps automatically grow as you add key-value pairs to them.

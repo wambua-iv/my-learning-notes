@@ -1,7 +1,4 @@
 Scheduling is unpredictable.
-
-
-
 ## Channels
 
 Goroutines communicate through channels Allows for gorountines to signal each other
@@ -32,6 +29,7 @@ close(ch)
 
 Go also has `buffered` channels.
 These channels buffer a limited number of writes without blocking. 
+
 > allows sending data into the buffer _until the buffer is full_
 > >[!tip]
 > >used when one want gorountines to execute without waiting on each other
@@ -51,13 +49,12 @@ A `buffered channel` is created by specifying the capacity of the buffer when cr
 
 **`ch := make(chan int, 10)`**
 
-Reading a closed channel will succeed
+Reading a closed channel will succeed -> reading will not cause the channel to PANIC
 
 Buffered channels with values that have not been read will be returned in order
 
 A buffered or unbuffered channel with no values returns the zero value of the of the channels type
-
-channels support the comma, ok idiom
+	-> channels support the comma, ok idiom
 
 
 ![[channels.png]]

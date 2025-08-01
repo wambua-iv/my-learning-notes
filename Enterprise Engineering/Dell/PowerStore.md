@@ -144,7 +144,7 @@ Management network provides access to:
 - PowerStore REST API, PowerStore Manager, and PowerStore CLI
 - Support Connectivity
 - vCenter
-	-__A minimum of five__ IPs per PowerStore X appliance is required per VLAN or subnet for Management.
+	-__A minimum of ==five__ IPs per PowerStore X== appliance is required per VLAN or subnet for Management.
 
 When a PowerStore node boots, it assigns itself an IP address on IDN.
 
@@ -209,7 +209,7 @@ Use these connection settings:
 *management port* => (interface mgmt chassis/slot/port)
 	#(config) interface mgmt 1/1/1
 	#(config-if-ma-1/1/1) no shutdown
-	 #(config-if-ma-1/1/1) no ip address dhcp
+	#(config-if-ma-1/1/1) no ip address dhcp
 	#(config-if-ma-1/1/1) ip address 172.17.57.20/24
 	#(config-if-ma-1/1/1) exit
  => `management route <IP/netmask gateway>` to define the default gateway manage the system
@@ -257,3 +257,258 @@ Ports 0 and 1 on the PowerStore T model appliance node are  reserved for the Clu
 Replication and Block Import is a shared network. The Block Import network is not used for any File functionality. Only the Replication portion of the network, with File Mobility, is used for replication of File storage
 
 [One out-of-band (OOB) management switch and two Top-of-Rack (ToR)] switches are required for PowerStore T to support iSCSI or NVMe/TCP host connectivity.
+
+A maximum of 32 storage networks can be configured. Up to eight storage
+networks can be configured per PowerStore interface.
+
+`spanning-tree mode rstp` to set the switch mode to Rapid Spanning Tree Protocol (RSTP).
+
+
+
+## Powerstore X
+Supports block (SAN-only), and vVol workloads with a hypervisor installed on the system
+Does not support NAS services
+
+
+deployed with multiple VLANS 
+Ports 0 and 1 on the PowerStore X model appliance nodes are reserved for the Cluster network.
+Management, Storage, vMotion => configured in the first time cluster is created through initial configuration wizard
+
+The Cluster network is used for intracluster management and data
+communications.
+- The cluster network is encrypted with IPSEC
+
+
+
+[Replication and Block Import] => configured after powerstore manager initialization
+	Uses front-end traffic for block storage and external data mobility traffic
+	shares ports with iSCSI network => sepatation is using VLANS
+		Shared port: Port 2 on I/O Module 0
+
+[NVMe TCP]
+	uses dedicated port => Port 0 on I/O Module 0	
+
+[vMotion]
+ = Configured during system initialization
+ = Two IPs are required for each PowerStore X appliance.
+ = 
+
+
+Configure NVMe/TCP on supported host types:
+	VMware vSphere 7.0U3 (supported with SmartFabric Storage Software).
+	Red Hat Enterprise Linux (RHEL) 8.2-8.4
+	SUSE Linux Enterprise Server (SLES) 15 SP2-SP3
+
+
+**double drive** failure is only available if the appliance has seven or more data drives, excluding the NVMe NVRAM drives.
+
+
+
+Only the **[Security Administrator]** and **[Administrator]** can 
+	manage users in the system.
+	can lock and unlock users.
+
+![[Pasted image 20250723115140.png]]
+
+
+Port: Upload AD or LDAP Server CA trust certificate for LDAP Secure
+	Default ports: [389] for LDAP, [636] for LDAPS, [3268] for LDAP Global Catalog, and [3269] for LDAPs Global Catalog
+
+Volumes are mapped during creation or after creation
+	- Host must have an initiator that is registered on powerstore by FC, ISCSI IQN or NVMe initiator NQN 
+
+= iSCSI initiators are automatically discovered by PowerStore once they are connected to at least one target [CHAP authentication must be disabled in the cluster for the autodetection of iSCSI initiators to work.]
+
+#### [Fibre Channel and NVMe initiators]
+= appliance has at least one Fibre Channel I/O Module on each node
+= one Fibre Channel port from the host and at least one Fibre Channel port from the appliance are connected to the same switch fabric 
+= PowerStore Fibre Channel ports are configured on the same Fibre Channel switch zone
+
+
+A host can belong to one host group only
+If the host has mapped volumes => it cannot be added to the host group
+
+
+
+**[Configuring MPIO]**
+
+PowerStore supported CHAP configurations:
+[Single (initiator enabled)]
+[Mutual (initiator and target)]
+
+
+
+volume is a single unit that represents a specific quantity of block storage
+Volume groups are logical containers for a group of volumes. A volume can only be a member of one volume group
+[block access services => NVMe, FC and iSCSI]
+Add up to [100 volumes] with the same properties at a time
+PowerStore supports increasing the volume size, but not decreasing it.
+PowerStore series supports the creation of thin volumes up to 256 TB
+
+[protection policy] applies to all members of the volume group. The individual volumes within the group cannot not have separate policies
+
+**Apply [write-order] consistency to protect all volume group members**
+	=> a single replication session is created for the entire volume group,
+	=> volume group write-order-consistent ensures that the write order is preserved among members when snapshots of the volume group are taken
+
+Volume renaming
+	=> requires pausing the replication
+
+Application tags cannot be assigned to volumes groups.
+
+
+iscsiadm -m session --rescan
+
+removing a volume from a volume group
+	=> If the volume group has a replication rule, the volume that is removed retains the policy
+	=> volume is not compliant until the volume group is synchronized to the destination
+	=> volume group is synchronized to the destination, the removed volume is also removed from the destination volume group
+
+Removing a volume from a volume group that is replicating, causes an error message stating that it cannot create a replication session for the volume => reapply the protection policy.
+[removed volume cannot be deleted] until all volume group snapshots (taken when the volume was a part of the group) expire or are deleted
+
+
+removed volume has existing snapshots, those volume group snapshots cannot be used to refresh or restore the removed volume.
+	=> Restore and refresh operations require that the volume group membership match the membership that existed when the snapshot was taken.
+
+PowerStore X models, volumes can only be provisioned to the internal ESXi hosts using PowerStore REST API or CLI.
+
+#### [internal migration]
+moves volumes or volume groups from one appliance to another within the cluster
+migrating a volume or volume group, all associated snapshots and thin clones migrate with the storage resource.
+Migration [always requires user action].
+	=> Manual migration
+	=> Assisted migration
+			system periodically monitors storage resource utilization across the appliances. Migration recommendations are based on factors such as drive wear, appliance capacity, and health. If a migration recommendation is accepted, a migration session is automatically created
+			[Before beginning the migration, a prompt to acknowledge rescan appears]
+	Migration states
+			synchronizing => background data coping
+			cutover phase => [final phase] ownership of the volume or volume group is transferred to the new appliance
+		[Migration is asynchronous] until the cutover occurs and can be paused or cancelled [delete and cancel buttons]anytime during the migration. Before cutover all volumes are fully synchronized.
+
+At volume creation volume placement is automatic
+	-> there is an option to specify volume placement
+
+
+#### [Local Data protection]
+Protection policies are configuration profiles that combine data protection rules
+=> only one protection policy per storage resource[resources => volumes, volume groups, thin clones, virtual machines, file systems].
+=> Snapshot [read-only point-in-time] and replication rules.
+=> protection policy can include up to four snapshot rules, and no more than one replication rule
+
+Remove a protection policy:
+ = Before moving the volume to a protected volume group, or
+ = Before deleting a volume.
+
+Replication parameters
+	A replication destination
+	The Recovery Point Object (RPO) => data replication frequency
+	An alert threshold for the RPO.
+
+Volume snapshots [are read-only]. You cannot add to, delete from, or
+change the contents of a Volume snapshot. [Snapshots cannot be refreshed]
+
+File system snapshots can be refreshed.[ updating contents of a file system snapshot]
+Hosts or NAS clients have no direct access to a snapshot.[create clones of the snapshot]
+	 volume snapshot clone: Map to a host.
+	 file system snapshot clone: Create an NFS export or SMB share.
+
+#### Snapshot restore
+= resets the data in the parent storage resource to the point in time at which the snapshot was taken. [for a  volume group all members of the group]
+		-Disconnect hosts from accessing the volume during restore operations
+
+#### [Thin Clone]
+= read/write copy of the storage resource that shares blocks with the parent resource
+=> can establish hierarchical snapshots to preserve data over different stages of data changes within a [Base Volume Family].
+
+![[Pasted image 20250729124445.png]]
+
+Data efficiency
+
+=> zero detection
+	=> zero Detection detects zeros and discards them
+	=> Deduplication => deduplication works at the block level at 4KB granularity.
+	=> compression => uses physical hardware to encode data using fewer bits
+than the original representation
+
+
+Data Encryption
+	=> Data At Rest Encryption
+		protects from 
+			Stolen Drive
+			 During transit
+			 Discarded Drive
+	Self-Encrypting Drives using [Advanced Encryption Standard](AES 256-bit) 
+		
+
+[Host Group rules]
+	A host can belong to one host group only.
+	If the host has mapped volumes, it cannot be added to the host group.
+	A host cannot be added to a host group that uses a different protocol.
+
+
+![[Pasted image 20250730103857.png]]
+
+Each NAS server is a separate virtual file server.
+Each NAS Server allows network access to PowerStore-hosted files and folders via network file sharing protocols.
+Each NAS Server can be associated with one or more file systems.
+NAS supports the follwing protocols: [SMB, NFSv3, NFSv4, FTP, and SFTP].
+Access can be provided to UNIX or Linux and Windows clients simultaneously.
+NAS Servers can be secured and isolated logically at the file system, network, and authentication level.
+VLAN separation in NAS server context supports network multitenancy.
+
+
+[file system]
+Up to 256 TB usable capacity per file system, minimum size of a file system is 3GB, 1.5GB is set aside for metadata
+Extend and shrink capabilities
+Capacity consumption that is limited by user and tree quotas
+
+[NAS server]
+Each NAS node runs in a NAS docker container.
+NAS Network Heartbeat[fixed intervals of 1 sec] enables data service high availability (HA), which results in NAS server failover when a threshold is reached
+
+NAS HA:
+	 Fault tolerance
+	 Load balance at failover
+	 Restarting all NAS nodes
+
+heartbeat failed for more than [five seconds], the node is considered as failed and high availability (HA) is triggered
+
+
+NAS [fencing] => Fencing is the isolation of a failed node so that it does not cause disruption to a cluster.
+
+Operating on every node, the NAS server failover logic:
+1. Detects the faulty NAS node.
+2. Fences the faulty NAS node.
+3. Moves the NAS servers to the backup NAS node.
+
+
+
+[types of file systems]
+General => Appropriate General use with NFS/SMB
+VMware File Systems => optimized for VMware workload. Available to NFS datastore
+	Does not support Quotas
+	Does not support [File level retention] => {*preventing modification of file system data* [Enterprise (FLR-E)], an authorized **storage administrator** can delete an FLR-E file system 
+	[Compliance (FLR-C)] => **Storage administrators/Dell Support** cannot delete files }
+
+FLR-C enabled file systems are compliant the Securities and Exchange Commission (SEC) rule
+FLR-C does not support snapshot restoration.
+
+
+Sync Writes Enabled
+	Setting is required when using SMB shares to store and access database files.
+	system performs immediate synchronous writes and reduces the chances of data loss
+
+[Oplocks Enabled]
+	Allows SMB clients to buffer file data locally before sending to the system. SMB clients can then work with files locally and periodically communicate changes
+
+![[Pasted image 20250731120500.png]]
+
+PowerStore T model supports NFSv3 and NFSv4
+
+SMB shares have a default value of 022
+
+
+To enable NFS file sharing, configure a NAS server with:
+	Naming services
+	NFS sharing protocol

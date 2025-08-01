@@ -1,8 +1,7 @@
  Emphasis on code clarity and readability against unnecessary complexity
  [happy path column]
-Go does not have a concept of absence of value
-representing a null value may necessitate creating a nil pointer
-
+Go does not have a concept of absence of value ⇒ representing a null value may necessitate creating a nil pointer
+The fastest way to read from memory is to read it sequentially. A slice of structs in Go has all the data laid out sequentially in memory. This makes it fast to load and fast to process.
 ## Pre-declared Identifiers 
 
 In Go, **predeclared identifiers** are special names that are built into the language. They serve specific purposes and are not reserved words, allowing the set to expand without invalidating existing programs. Here are some notable predeclared identifiers:
@@ -91,7 +90,7 @@ seven = moto // there are no errors encountered
 
 
 references types and in-built values use __value schematics__ to move data around in a program
-:wavy_dash: Avoid creating pointers to slices, channels or interface
+▶️ Avoid creating pointers to slices, channels or interface
 
 _empty slices_
 
@@ -194,3 +193,13 @@ When a package is initialized all the constants  and variable declarations in th
 
 
 Perhaps a little bit of duplicated code might occasionally be better if it improves other aspects such as code expressiveness.
+
+🔷 Smallest amount of memory that can be addressed is a *[byte]*
+
+
+[Breaking Golang change]
+	When using Go 1.22 or later, if the go directive is set to 1.22 or higher, a for loop creates a new index and value variable on each iteration. This behavior is applied per module.
+
+>**When unmarshaling from JSON into a struct field with no `json` tag, the name match is case-insensitive. When marshaling a struct field with no `json` tag back to JSON, the JSON field will always have an uppercase first letter, because the field is exported.**
+>If a field should be ignored when marshaling or unmarshaling, use a dash (`-`) for the name. If the field should be left out of the output when it is empty, add `,omitempty` after the name. For example, in the `Order` struct, if you didn’t want to include `CustomerID` in the output if it was set to an empty string, the struct tag would be `json:"customer_id,omitempty"`.
+

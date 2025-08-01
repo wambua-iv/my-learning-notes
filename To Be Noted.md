@@ -25,3 +25,9 @@ Finally, enable fingerprint login using the following command:
 |   |   |
 |---|---|
 |1|`sudo` `pam-auth-update`|
+
+
+postgresql://nonymous:**<ENTER-SQL-USER-PASSWORD>**@dapper-tang-6055.6xw.aws-ap-southeast-1.cockroachlabs.cloud:26257/hospice?sslmode=verify-full
+
+
+# Mini PC GT37 AMD Ryzen AI 9 HX-370 (up to 5.1GHz), 32GB LPDDR5X (8000MHz) 1TB PCIe 4.0 SSD Mini Gaming Computers, Triple Screen, WiFi 7, 2.5G*2, USB4+Oculink

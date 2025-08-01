@@ -1,4 +1,4 @@
-
+ 
 [guide/style.md at master · uber-go/guide (github.com)](https://github.com/uber-go/guide/blob/master/style.md)
 [dariubs/GoBooks: List of Golang books (github.com)](https://github.com/dariubs/GoBooks?tab=readme-ov-file#2022---pro-go)
 [We Need To Talk About The Bad Sides of Go | by Aviv Carmi | ITNEXT](https://itnext.io/we-need-to-talk-about-the-bad-sides-of-go-568a1e5adbc6)
@@ -39,6 +39,9 @@ https://www.reddit.com/r/golang/comments/1f2s9io/why_should_data_be_independent_
 [Top 20 Dockerfile best practices](https://sysdig.com/learn-cloud-native/dockerfile-best-practices/)
 [KodeCloud Skills Tests](https://kodekloud.com/pages/skills-test)
 [DataStructure](https://sp19.datastructur.es/)
+[Go with ai-manager](https://dshills.medium.com/across-the-ai-divide-unifying-models-with-ai-manager-and-go-b227a8bb87aa)
+[argon2 vs bcrypt](https://www.reddit.com/r/cryptography/comments/11tqci2/argon2_vs_bcrypt_vs_scrypt_vs_pbkdf2/)
+[passwird hashing](https://markilott.medium.com/password-storage-basics-2aa9e1586f98)
 
 
 
