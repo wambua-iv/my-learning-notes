@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Golang/Interfaces.md",
+                "file": "Enterprise Engineering/Huawei Training/Storage.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Interfaces"
+              "title": "Storage"
             }
           },
           {
@@ -201,22 +201,28 @@
   },
   "active": "de534d8824cb6112",
   "lastOpenFiles": [
-    "Golang/Maps.md",
+    "Enterprise Engineering/Dell/Unity Case.md",
+    "Programming/Bits & Bytes.md",
+    "Enterprise Engineering/Huawei Training/Storage.md",
+    "Enterprise Engineering/Linux/Redhat.md",
+    "Pasted image 20250813151327.png",
     "Enterprise Engineering/Dell/PowerStore.md",
-    "Pasted image 20250731120500.png",
+    "Programming/Programming bit Bytes.md",
+    "Programming/Hash Maps.md",
+    "To Be Noted.md",
     "Golang/Go bits and bytes.md",
+    "Golang/Interfaces.md",
+    "Reading List.md",
+    "Golang/Maps.md",
+    "Pasted image 20250731120500.png",
     "Golang/Pointers.md",
     "Go-ey links.md",
-    "To Be Noted.md",
     "Untitled.canvas",
     "Pasted image 20250730103857.png",
     "Pasted image 20250729124445.png",
-    "Programming/Bits & Bytes.md",
     "Golang/Slices & Arrays.md",
     "Linux/commands.md",
     "Enterprise Engineering/Linux/To Note.md",
-    "Enterprise Engineering/Linux/Redhat.md",
-    "Programming/Programming bit Bytes.md",
     "Programming/Untitled.md",
     "Golang/Structs.md",
     "Golang/Try Outs.md",
@@ -224,16 +230,12 @@
     "Golang/Concurrency.md",
     "Golang/channels.png",
     "Deployment.md",
-    "Enterprise Engineering/Huawei Training/Storage.md",
-    "Golang/Interfaces.md",
     "Golang/Generics.md",
     "Pasted image 20250630144156.png",
     "Pasted image 20250630124317.png",
     "VMWare/Disk Provisioning.md",
     "Linux/The Kernel.md",
     "Programming/Stack vs Heap.md",
-    "2025-05-03.md",
-    "Fun Bytes.md",
     "Pasted image 20250605100850.png",
     "Pasted image 20250519172940.png",
     "libfprint-2-tod1-broadcom/var/lib/fprint/fw/key.pem",
@@ -245,7 +247,6 @@
     "libfprint-2-tod1-broadcom/var/lib/fprint/fw/bcmDeviceFirmwareCitadel_1.bin",
     "libfprint-2-tod1-broadcom/var/lib/fprint/fw/bcmCitadel_7.otp",
     "libfprint-2-tod1-broadcom/var/lib/fprint/fw/bcmCitadel_1.otp",
-    "libfprint-2-tod1-broadcom/var/lib/fprint/fw",
-    "Enterprise Engineering/Huawei Training/SAN-NAS.png"
+    "libfprint-2-tod1-broadcom/var/lib/fprint/fw"
   ]
 }

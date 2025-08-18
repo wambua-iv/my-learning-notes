@@ -82,7 +82,8 @@ to all of the controllers with the distributed hash table, or DHT algorithm
 for parallel processing
 		- Global Cache Pre-fetching
 		- Read hits
-
+[Global pooling]: system uses RAID2.0+ to create global storage pool over multiple controller enclosures
+	=> All SSDs contribute evenly LUN spaces for backend sharing
 
 ### Converged NAS and SAN
 SAN and NAS Protocols are isolated
@@ -207,7 +208,7 @@ Synchronous
 	**Dual Write** 
 		-> production storage system receives a write request
 		-> HyperReplication records the request in a log (records the address information)
-		-> data written to both the primary and secondary LUNs. If a LUN is in the write-back state, data will be written to the cache.
+		-> data written to both the primary and secondary LUNs. If a LUN is in the [write-back state, data will be written to the cache.]
 		-> HyperReplication waits for the write results from both the primary and secondary LUNs. Replication relationship is interrupted if the Secondary LUN write fails
 		-> The system returns the write result of the primary LUN to the host.
 		 {synchronization is started later, the data blocks corresponding to the log address are replicated again}
@@ -348,8 +349,7 @@ target LUNs exchange information to allow the target LUN to take over services.
 SmartMigration is implemented in two stages: 
 [data synchronization] 
 [LUN information exchange]
-	Response is sent after data is written to both source and target 
-one storage system fails, hosts automatically choose the paths to the other storage system for service access. If the replication links between the storage systems fail, only one storage system can be accessed by hosts, which is determined by the arbitration mechanism of HyperMetro
+	Response is sent after data is written to both source and target one storage system fails, hosts automatically choose the paths to the other storage system for service access. If the replication links between the storage systems fail, only one storage system can be accessed by hosts, which is determined by the arbitration mechanism of HyperMetro
 		= Data migration for capacity, performance, and reliability adjustments For example, a LUN can be migrated from one storage pool to another.
 		= Storage system upgrade with SmartVirtualization SmartMigration works with SmartVirtualization to migrate data from legacy storage systems
 
@@ -456,6 +456,9 @@ user to perform authentication and data encryption for SNMPv3.
 	- manual
 	- batch => Use a template to add multiple nodes at once
 	- processes to import require authentication
+	[Storage Network]
+		- management network IP address of the DPC nodes have been configured
+		- 
 
 indexes
 	- Primary index
@@ -579,3 +582,87 @@ Insufficient prefetch
 
 
 
+### [DME IQ]
+ = Information can be collected only with customers' authorization.
+ = All non-query operations performed on the DME IQ Client are recorded, integrity check is performed, and data transmission records can be traced.
+ = [Sensitive data and important configurations] are encrypted using the AES256 algorithm to prevent information leakage.
+
+DNS load balancing of OceanStor Dorado supports the 
+	weighted round-robin policy 
+	load balancing by node CPU usage, 
+	number of connections 
+	node bandwidth usage
+	overall load.
+
+
+#### [Smartkit]
+= Site Deployment Delivery
+= Routine Maintenance
+= Troubleshooting
+= Upgrade/Patch installation
+= Expansion
+= Parts Replacement
+= Migration
+
+
+[Huawei Container Storage Solution]
+Huawei storage communicates with Huawei CSI drivers through RESTful.
+Huawei CSI Driver implements the call initiated by sidecar on Huawei storage
+	CSI Controller: a pod that runs independently in Deployment mode. used to interact with storage and create and delete resource
+	CSI Node: a pod that runs on Kubernetes worker nodes in DaemonSet mode, used to mount, unmount, or format a LUN/file system
+
+Do not hold down the power button for more than five seconds; otherwise, the storage system will be powered off
+
+
+
+The `root_squash` option maps the remote root user (UID 0) to an unprivileged anonymous user, typically `nfsnobody` or with UID/GID 65534, on the NFS server. This prevents the client's root user from having root-level access to the shared filesystem, enhancing security by adhering to the principle of least privilege. It is the default behavior for most NFS servers and is recommended in environments where clients are not fully trusted. With `root_squash`, any files created by the root user on the client will be owned by the anonymous user on the server, preventing the upload of potentially dangerous setuid binaries.
+
+In contrast, `no_root_squash` disables this mapping, allowing the remote root user to have full root privileges on the NFS share, equivalent to the local root on the server. This setting is mainly useful for diskless clients or specific workloads where administrative access from the client is necessary. However, it poses significant security risks: if an attacker gains root access on a client, they can modify critical files, plant malware, or escalate privileges on the server. This option should only be used in trusted environments, such as homelabs or when the same administrator controls both client and server.
+
+Notably, while `root_squash` is the traditional default in standard NFS implementations, it is not the default for NFS Azure file shares—`no_root_squash` is, and root squash must be explicitly enabled. The `all_squash` option goes further by mapping all users (not just root) to the anonymous user, which is useful for public shares.
+
+- For a 2 U controller enclosure, the default IP addresses of the management network ports on controllers A and B are respectively **192.168.128.101** and **192.168.128.102**, and the default subnet mask is **255.255.0.0**.
+If associated LUNs are added to a consistency group, data unavailability is prevented
+
+
+If the value of crc_err increases, check whether the physical path is normal. The physical components to be checked include optical modules, optical fibers, and hosts/storage devices. Switches transparently transmit frames between devices. When a frame is transmitted from one switch to another,
+
+In medium- and large-sized database applications, data, logs, and change records are stored on associated LUNs of storage systems
+To maintain the data correlation, you can add the remote replication pairs of those LUNs to the same consistency group.
+secondary LUNs in all remote replication pairs must reside in the same remote storage system.
+
+ DeviceManager, DME IQ, or SmartKit can be used to initialize a storage system.
+
+
+|                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Role of the logical port. Possible values are:<br><br>**Management**: A port of this role is used by a vStore administrator to log in to the system for management.<br><br>**Service**: A port of this role is used to access services, such as accessing CIFS shares of file systems.<br><br>**Management + service**: A port of this role is used to access services or for a vStore administrator to log in to the storage system for system management.<br><br>**Replication**: A port of this role is used for replication link connection in remote replication or HyperMetro, or for quorum link connection in HyperMetro.<br><br>**Client**: A port of this role is used when the storage system functions as a client to establish link connections with remote devices in NAS server-free migration and SmartMobility.<br><br>**VTEP** (VxLAN tunnel endpoint): A port of this role is used to establish VxLAN tunnels when a cloud platform accesses the shared service of storage file systems.<br><br>**Health check**: A port of this role is used by the cloud platform to check the health status of the shared service of storage file systems.<br><br>**System management**: A port of this role is used by the system administrator to log in to the storage system and perform routine O&M operations, such as resource provisioning, alarm and performance management, and log collection. |
+| \|vStore to which the logical port belongs\| => is set to **Service**, **Management**, or **Management + service**.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+|                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+
+
+
+![[Pasted image 20250813151327.png]]
+
+
+After a disk is faulty, the disk pool starts data rebuilding 15 minutes later.
+After a node is faulty, if the disk pool still has redundancy protection, data rebuilding is delayed for seven days
+disk pool does not have redundancy protection, data rebuilding is started 24 hours later.
+
+
+Multi-Point-in-Time Caching =>
+
+FastWrite: private protocol is used to combine the two interactions
+
+Replication based on ROW snapshots: The minimum asynchronous replication period of unstructured services is 30 seconds. The minimum asynchronous replication
+period of the structured service is 10 seconds using the innovative multi-time-point cache technology.
+
+- Alarm/_Location_ _indicator_ of the disk module Steady yellow: The disk module is faulty. Blinking yellow (2 Hz) : The disk module is being located.
+
+https://support.huawei.com/hedex/hdx.do?docid=EDOC1100489522&id=SmartDedupe_block_006
+
+
+DPC => Deployed on compute nodes and provides standard POSIX and MPI-IO access.
+	=> multiple clients concurrently access the same file
+	=> In addition, I/O-level load balancing in DPC access mode is better than that in NFS access mode
+	

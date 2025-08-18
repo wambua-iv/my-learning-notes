@@ -88,6 +88,9 @@ seven := struct {
 seven = moto // there are no errors encountered
 ```
 
+>[!note]
+>calculation of different integer types require explicit conversion
+>🟥 Go throws a `mismatched types` error if types are mixed
 
 references types and in-built values use __value schematics__ to move data around in a program
 ▶️ Avoid creating pointers to slices, channels or interface
@@ -189,9 +192,6 @@ When a package is initialized all the constants  and variable declarations in th
 	creating side effects
 
 
-
-
-
 Perhaps a little bit of duplicated code might occasionally be better if it improves other aspects such as code expressiveness.
 
 🔷 Smallest amount of memory that can be addressed is a *[byte]*
@@ -200,6 +200,27 @@ Perhaps a little bit of duplicated code might occasionally be better if it impro
 [Breaking Golang change]
 	When using Go 1.22 or later, if the go directive is set to 1.22 or higher, a for loop creates a new index and value variable on each iteration. This behavior is applied per module.
 
+>[!note]
 >**When unmarshaling from JSON into a struct field with no `json` tag, the name match is case-insensitive. When marshaling a struct field with no `json` tag back to JSON, the JSON field will always have an uppercase first letter, because the field is exported.**
 >If a field should be ignored when marshaling or unmarshaling, use a dash (`-`) for the name. If the field should be left out of the output when it is empty, add `,omitempty` after the name. For example, in the `Order` struct, if you didn’t want to include `CustomerID` in the output if it was set to an empty string, the struct tag would be `json:"customer_id,omitempty"`.
 
+```go 
+type config struct {
+	pgxConn string
+}
+
+func (c *config) configure() {
+	verbing := new(config)
+	*verbing = *c
+	fmt.Println(*verbing)
+}
+
+func main() {
+	fmt.Println("Hello, 世界")
+	verbed := config{
+		pgxConn: "thinking",
+	}
+	verbed.configure()
+
+}
+```

@@ -10,3 +10,16 @@
 
 [nmcli]
 [nmtui]
+
+
+
+
+gpasswd => 
+	add members
+	change password
+
+groupdel => delete the group
+groupmod => modify the group
+
+usermod => 
+ -a to append user changes

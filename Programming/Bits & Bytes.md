@@ -46,5 +46,29 @@ Golang => unsigned and signed arithmetic operations are not supported
 
 Always design a thing by considering it in its next larger context
 
-
 ### [type casting at the parameter level]
+
+
+```go
+//testing integer overflow
+var a int8 = 124
+var b int8 = 123
+
+func main() {
+	fmt.Println("Hello, 世界")
+	s := a + b
+	if a > s || b > s {
+		fmt.Println("Overflow")
+	}
+	fmt.Println(s)
+	if math.MaxInt8-125 > 0 {
+		fmt.Println("will cause overflow")
+	}
+}
+
+```
+
+two's compliment addition
+	- `negative overflow` => the result is 2w more the sum of the values
+	- `positive overflow` => the result is 2w less the sum of the values 
+	- Discard the most significant bit if the resulting word size is greater than the word size of the evaluation

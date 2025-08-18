@@ -488,8 +488,9 @@ Operating on every node, the NAS server failover logic:
 General => Appropriate General use with NFS/SMB
 VMware File Systems => optimized for VMware workload. Available to NFS datastore
 	Does not support Quotas
-	Does not support [File level retention] => {*preventing modification of file system data* [Enterprise (FLR-E)], an authorized **storage administrator** can delete an FLR-E file system 
+	Does not support [File level retention] {WORM}=> {*preventing modification of file system data* [Enterprise (FLR-E)], an authorized **storage administrator** can delete an FLR-E file system 
 	[Compliance (FLR-C)] => **Storage administrators/Dell Support** cannot delete files }
+[FLR] => statuses Not Locked, Locked Append Only and Expired.
 
 FLR-C enabled file systems are compliant the Securities and Exchange Commission (SEC) rule
 FLR-C does not support snapshot restoration.
@@ -512,3 +513,113 @@ SMB shares have a default value of 022
 To enable NFS file sharing, configure a NAS server with:
 	Naming services
 	NFS sharing protocol
+
+
+Changing the size increases or decreases the file system capacity.
+File system cannot be renamed
+
+NAS Server [FLRCompliance.writeverify] parameter controls the data
+integrity check
+
+
+When data is written, the storage system reads it again to ensure that the data
+has not changed during the write process.
+	If the data does not match, the comparison is retried twice.
+	If there is still a mismatch, an error is reported.
+	Files that are already locked do not have write verification, as they cannot be written to.
+Write verification may have a performance impact due to the read back operation
+
+
+Delete all snapshots and un-assign the protection policy before deleting the file system
+
+Network Data Management Protocol (NDMP) is a backup and recovery protocol that is used to transport data
+
+PowerStore supports: Three-way NDMP, which transfers both backup data and metadata over the LAN
+
+file system capacity metrics are collected every five minutes and rolled over hourly and daily.
+NAS server metrics 20 seconds and rolled over every five minutes, hourly, and daily
+
+Node-level metrics for NFS and SMB use 5-second granularity
+
+
+[Replication]
+Synchronous replication is provided by Metro Volume [active-active block volumes spanned across two clusters]
+Replication objects : 
+	Volumes, volume groups [thin clones of the two]
+	NAS servers
+		- All file systems are replicated
+		- File Snapshots are not replicated
+	vVols with Site Recovert Manager
+
+A single resource can only be replicated to a single destination cluster
+	cluster level replication topologies 
+		=> One to many = [source replicates different resources to different destinations]
+		=> many to one = [multiple source systems replicate to a single destination]
+
+Replication relationship
+	= channel for managing replication using the cluster management IP
+	= bi-directional replication of resources
+	= PowerStore T ports are tagged for replication by default when an iSCSI Storage Network is configured on it
+	= PowerStore X, the Ethernet ports that are used for replication are set by the system and are not configurable
+
+Synchronization begins automatically after you apply the protection policy
+Reprotect the replication session to synchronize the destination storage resource, and then resume the replication session
+
+Removing protection policy => The destination storage resource stays in read-only mode
+
+DC power and NEBS-compliant version available with PowerStore 500
+
+remove the protection policy from the source volume
+hosts at the DR site have limited Read-Only access to the replica
+
+
+File Mobility Network is a dedicated network that is used to control communication between clusters
+	- Network required for file systems replication
+	- [share same network (subnet) as management] = does not require unique VLAN 
+
+Go to Protection > Remote Systems and select ADD.
+Provide the remote system cluster IP address and the administrator credentials.
+
+Protection Policy is assigned at the [NAS Server level].
+Once a remote system relationship is set up,PowerStore uses SSL certificate based authentication
+
+Planned Failover operation is initiated from source system, and destination NAS Server is promoted to production mode.
+to synchronize the destination storage resource and resume the replication
+session, use the [Reprotect action initiated] from the ==destination==
+
+
+In cloning a NAS server you select the file system to clone
+To delete a NAS server unassign the protection policy
+	Deleting the Source LUN does not delete the replication destination
+
+Source and Destination PowerStore must have similar network connectivity
+Following properties of the Destination NAS Server can be modified:
+	File interface
+	DNS/NIS/LDAP settings
+	Virus checker configuration file
+	Events pool
+
+
+vVol asynchronous remote replication sessions are not directly configured by storage administration in PowerStore Manager. Replication is done by VASA[vSphere APIs for Storage Awareness] and SRM[site recovery manager]
+	PowerStore 3.0 systems are paired for remote replication [matching replication protection rules]
+	VMware vCenter Server and ESXi hosts version 6.5 and newer [paired vVol datastores]
+	VMware SRM version 8.3 and newer
+	vSphere supplies a Storage Policy with a Protection Rule to PowerStore during vVol creation or policy update.
+	 Through VASA 3.0, PowerStore creates a read-only Protection Policy and associates it with protected vVol
+
+SRM replication flows
+	One to One
+	One to Many
+	Many to One
+	Multiple Replications
+
+
+#### [Requirements for vVol replication] => begins when protected virtual machine is created
+ 1.  source and destination site PowerStore clusters must be configured as Remote Systems
+ 2. Configured source and destination  protection rules
+ 3. matching storage containers configured at source and destination clusters[SCSI protocol must be selected]
+ 4. vCenter connection for VASA registration
+ 5. source and destination clusters must have their site [vCenter ESXi host SCSI-based ] connectivity and access configured
+
+#### [Metro Volume]
+==synchronous== replication of spanned block storage volumes across two PowerStore clusters in metro distance for VMFS datastores.
