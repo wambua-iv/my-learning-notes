@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Enterprise Engineering/Huawei Training/Storage.md",
+                "file": "Deployment.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Storage"
+              "title": "Deployment"
             }
           }
         ]
@@ -156,7 +156,18 @@
   },
   "active": "ee2650b421bfb29f",
   "lastOpenFiles": [
-    "Deployment.md",
-    "Enterprise Engineering/Huawei Training/Storage.md"
+    "Enterprise Engineering/Huawei Training/Storage.md",
+    "Reading List.md",
+    "Programming/Untitled.md",
+    "Programming/Bits & Bytes.md",
+    "Pasted image 20250813151327.png",
+    "Pasted image 20250731120500.png",
+    "Pasted image 20250730103857.png",
+    "Pasted image 20250729124445.png",
+    "Pasted image 20250723115140.png",
+    "Linux/commands.md",
+    "Enterprise Engineering/Linux/Redhat.md",
+    "Enterprise Engineering/Dell/Unity Case.md",
+    "Deployment.md"
   ]
 }
